@@ -1,0 +1,182 @@
+\documentclass{article}
+% Change "article" to "report" to get rid of page number on title page
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{Tabbing}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{graphicx,float,wrapfig}
+\usepackage{multirow}
+\usepackage{enumerate}
+% In case you need to adjust margins:
+\topmargin=-0.45in      %
+\evensidemargin=0in     %
+\oddsidemargin=0in      %
+\textwidth=6.5in        %
+\textheight=9.0in       %
+\headsep=0.25in         %
+
+% Homework Specific Information
+\newcommand{\hmwkTitle}{Week 7 report}
+\newcommand{\hmwkClass}{}
+\newcommand{\hmwkAuthorName}{Donglai\ Wei}
+
+
+% Setup the header and footer
+\pagestyle{fancy}                                                       %
+\lhead{\hmwkAuthorName}                                                 %
+\rhead{\firstxmark}                                                     %
+\lfoot{\lastxmark}                                                      %
+\cfoot{}                                                                %
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}                          %
+\renewcommand\headrulewidth{0.4pt}                                      %
+\renewcommand\footrulewidth{0.4pt}                                      %
+
+% This is used to trace down (pin point) problems
+% in latexing a document:
+%\tracingall
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\begin{enumerate}
+
+% Some tools
+\newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+                                    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+                                   \nobreak\extramarks{#1}{}\nobreak}%
+
+\newlength{\labelLength}
+\newcommand{\labelAnswer}[2]
+  {\settowidth{\labelLength}{#1}%
+   \addtolength{\labelLength}{0.25in}%
+   \changetext{}{-\labelLength}{}{}{}%
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#2\end{minipage}}%
+   \marginpar{\fbox{#1}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \changetext{}{+\labelLength}{}{}{}}%
+
+\setcounter{secnumdepth}{0}
+\newcommand{\homeworkProblemName}{}%
+\newcounter{homeworkProblemCounter}%
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]%
+  {\stepcounter{homeworkProblemCounter}%
+   \renewcommand{\homeworkProblemName}{#1}%
+   \section{\homeworkProblemName}%
+   \enterProblemHeader{\homeworkProblemName}}%
+  {\exitProblemHeader{\homeworkProblemName}}%
+
+\newcommand{\problemAnswer}[1]
+  {\noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}}%
+
+\newcommand{\problemLAnswer}[1]
+  {\labelAnswer{\homeworkProblemName}{#1}}
+
+\newcommand{\homeworkSectionName}{}%
+\newlength{\homeworkSectionLabelLength}{}%
+\newenvironment{homeworkSection}[1]%
+  {% We put this space here to make sure we're not connected to the above.
+   % Otherwise the changetext can do funny things to the other margin
+
+   \renewcommand{\homeworkSectionName}{#1}%
+   \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+   \addtolength{\homeworkSectionLabelLength}{0.25in}%
+   \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+   \subsection{\homeworkSectionName}%
+   \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+  {\enterProblemHeader{\homeworkProblemName}%
+
+   % We put the blank space above in order to make sure this margin
+   % change doesn't happen too soon (otherwise \sectionAnswer's can
+   % get ugly about their \marginpar placement.
+   \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+
+\newcommand{\sectionAnswer}[1]
+  {% We put this space here to make sure we're disconnected from the previous
+   % passage
+
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}%
+   \enterProblemHeader{\homeworkProblemName}\exitProblemHeader{\homeworkProblemName}%
+   \marginpar{\fbox{\homeworkSectionName}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   }%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make title
+\title{\vspace{0.3in}\textmd{\textbf{\hmwkTitle}}}
+\date{2010.10.12}
+\author{\textbf{\hmwkAuthorName}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\begin{spacing}{1.1}
+\maketitle
+
+\section{1) Reorganization of ME moves}
+\subsection{A) Focus on Dish Config}
+Inspired by "Reading Tea Leaves: How Humans Interpret Topic Models":\\
+{\bf Focus on the latent space:}\\
+1) How well is a certain restaurant explained by the dishes ?$\Rightarrow$ Decompose-Restaurant Move(lower level)\\
+2) How representative are the dishes? $\Rightarrow$ Dish Refinement(higher level)\\ \\
+So, we are going to do higher-level moves, directly refining dish config.
+\subsection{B) Randomness and Efficiency}
+For dish config refinement, now we have {\bf Decompose-Dish,Merge-Dish,Local-Dish},which are in decreased order in terms of complexity.\\ \\
+0) Instead of doing the move for all dishes, we use a move for one dish at a time so that they are "light" enough to mix better.\\
+1) We may need Randomness to choose a move s.t. Decompose-Dish is relatively less frequently.\\
+2) In Decompose-Dish, we may want to decompose noiser dishes more frequently.\\
+3) In Merge-Dish, we may want to merge smaller dishes more frequently.\\
+
+\subsection{C) Pseudocode}
+\begin{alltt}
+  \(\%a)Initialization:\)
+      Gibbs-Initialization
+
+  \(\%b)Run for Convergence:\)
+      While Likelihood doesn't increase any more:          
+          Switch(randsample([1,2,3],weight_move))
+              case 1:
+              \(\%1)Local Word Refinement () :\)
+                    Local-Word(randsample(dish))
+              case 2:
+              \(\%1)Merge Dish Refinement () :\)
+                    weight~num of words in the dish
+                    Merge-Dish(randsample(dish,weight))
+              case 3:
+              \(\%1)Decompose Dish Refinement () :\)
+                    weight~-Likelihood/num of words in the dish
+		    Decompose-Dish(randsample(dish,weight))
+	  End
+      End
+\end{alltt}
+\begin{enumerate}[i]
+ \item Decompose-Dish:
+\begin{enumerate}[a]
+ \item In the beginning, Decompose-Restaurant(delete previous restaurant config) is used to get out of stuck given bad dishes.
+ \item Later when the dishes become better, Decompose-Table(only delete tables with certain dish) is used for efficiency.
+\end{enumerate}
+ \item Merge-Dish: It may only be helpful in the beginning, when there tend to be many small dishes.
+ \item Local-Word: 
+\begin{enumerate}[a]
+ \item Can be seen as a bigger version of Local-customer, where we try to reconfig one big "customer" in the dish
+ \item A little drift away to Decompose-Word, we can delete the word configuration and resample+search 
+\end{enumerate}
+\end{enumerate}
+
+
+\section{2) Gibbs Sampling with FAIR INITIALIZATION}
+\section{3) Results on Topic Model}
+Here, I run Gibbs Sampling and ME algorithm on a synthetic data. 100 words and 200 documents.
+Hungarian Algorithm to match similar topics with a hamming distance metric.
+\end{spacing}
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

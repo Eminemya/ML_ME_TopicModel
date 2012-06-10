@@ -1,0 +1,10 @@
+reset(RandStream.getDefaultStream)
+
+
+% description of generated data set.
+imsize       = 10;
+noiselevel   = 0;
+numbarpermix = [0,0,ones(1,5)]/5;
+numgroup     = 500;
+numdata      = 200;
+datass      = genbars(imsize,noiselevel,numbarpermix,numgroup,numdata);

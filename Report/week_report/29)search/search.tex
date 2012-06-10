@@ -1,0 +1,179 @@
+\documentclass{article}
+\usepackage{CJK}
+% Change "article" to "report" to get rid of page number on title page
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{Tabbing}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{graphicx,float,wrapfig}
+\usepackage{multirow}
+\usepackage{enumerate}
+\usepackage{comment} 
+% In case you need to adjust margins:
+\topmargin=-0.45in      %
+\evensidemargin=0in     %
+\oddsidemargin=0in      %
+\textwidth=6.5in        %
+\textheight=9.0in       %
+\headsep=0.25in         %
+
+% Homework Specific Information
+\newcommand{\hmwkTitle}{Combinatoric Optimization Problem}
+\newcommand{\hmwkClass}{}
+\newcommand{\hmwkAuthorName}{Donglai\ Wei}
+
+
+% Setup the header and footer
+\pagestyle{fancy}                                                       %
+\lhead{\hmwkAuthorName}                                                 %
+\rhead{\firstxmark}                                                     %
+\lfoot{\lastxmark}                                                      %
+\cfoot{}                                                                %
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}                          %
+\renewcommand\headrulewidth{0.4pt}                                      %
+\renewcommand\footrulewidth{0.4pt}                                      %
+
+% This is used to trace down (pin point) problems
+% in latexing a document:
+%\tracingall
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\begin{enumerate}
+
+% Some tools
+\newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+                                    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+                                   \nobreak\extramarks{#1}{}\nobreak}%
+
+\newlength{\labelLength}
+\newcommand{\labelAnswer}[2]
+  {\settowidth{\labelLength}{#1}%
+   \addtolength{\labelLength}{0.25in}%
+   \changetext{}{-\labelLength}{}{}{}%
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#2\end{minipage}}%
+   \marginpar{\fbox{#1}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \changetext{}{+\labelLength}{}{}{}}%
+
+\setcounter{secnumdepth}{0}
+\newcommand{\homeworkProblemName}{}%
+\newcounter{homeworkProblemCounter}%
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]%
+  {\stepcounter{homeworkProblemCounter}%
+   \renewcommand{\homeworkProblemName}{#1}%
+   \section{\homeworkProblemName}%
+   \enterProblemHeader{\homeworkProblemName}}%
+  {\exitProblemHeader{\homeworkProblemName}}%
+
+\newcommand{\problemAnswer}[1]
+  {\noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}}%
+
+\newcommand{\problemLAnswer}[1]
+  {\labelAnswer{\homeworkProblemName}{#1}}
+
+\newcommand{\homeworkSectionName}{}%
+\newlength{\homeworkSectionLabelLength}{}%
+\newenvironment{homeworkSection}[1]%
+  {% We put this space here to make sure we're not connected to the above.
+   % Otherwise the changetext can do funny things to the other margin
+
+   \renewcommand{\homeworkSectionName}{#1}%
+   \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+   \addtolength{\homeworkSectionLabelLength}{0.25in}%
+   \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+   \subsection{\homeworkSectionName}%
+   \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+  {\enterProblemHeader{\homeworkProblemName}%
+
+   % We put the blank space above in order to make sure this margin
+   % change doesn't happen too soon (else \sectionAnswer's can
+   % get ugly about their \marginpar placement.
+   \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+
+\newcommand{\sectionAnswer}[1]
+  {% We put this space here to make sure we're disconnected from the previous
+   % passage
+
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}%
+   \enterProblemHeader{\homeworkProblemName}\exitProblemHeader{\homeworkProblemName}%
+   \marginpar{\fbox{\homeworkSectionName}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   }%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make title
+\title{\vspace{0.3in}\textmd{\textbf{\hmwkTitle}}}
+\date{2011.1.16}
+\author{\textbf{\hmwkAuthorName}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\begin{spacing}{1.1}
+\maketitle
+
+
+\section{0)Set Up:}
+\begin{CJK}{UTF8}{gbsn}
+中餐馆有K道菜供选择，共J家连锁店，顾客可分成W种（e.g.年龄）\\
+每家餐馆中，每桌只有一道菜（k相同），人种不限（w任意）\\
+\end{CJK}
+
+{\bf \emph{Constants:}}\\
+$\alpha,\gamma,\lambda$\\
+
+{\bf \emph{Variable:}}\\
+\begin{CJK}{UTF8}{gbsn}
+$\{n_{jk}^{w}\}$:在第j家连锁店 $j＝1,2,...,J$，点了第k道菜$k=1,2,...,K$的第w种顾客的人数$w=1,2,...,W$
+\end{CJK}
+{\bf \emph{Statistics:}}\\
+$n_{jk}=\sum_{w=1}^{W} n_{jk}^{w}$\\ 
+$n_{j.}=\sum_{k=1}^{K} n_{jk}$ \\ \\
+\begin{CJK}{UTF8}{gbsn}
+$\{m_{jk}\}$:在第j家连锁店 $j＝1,2,...,J$，点了第k道菜$k=1,2,...,K$的桌子数量 \\
+\end{CJK}
+$m_{j.}=\sum_{k=1}^{K} m_{jk}$\\
+$m_{..}=\sum_{j=1}^{J} m_{j.}$\\
+
+{\bf \emph{Linear Constraints:}}\\
+$\sum_{k=1}^{K} n_{jk}^{w}=n_{j.}^{w}$, for each w\\ \\
+
+{\bf \emph{Nonlinear Object Funciton:}}
+\begin{eqnarray*}
+F
+&=&\sum_{j=1}^{J} \{log \frac{\Gamma(\alpha)}{\Gamma(n_{j..}+\alpha)}+\sum_{k=1}^{K}[log(\Gamma(n_{jk})+log \alpha
+]\} \\
+&+&log \frac{\Gamma(\gamma)}{\Gamma(m_{..}+\gamma)}+\sum_{k=1}^{K} [log(\frac{\Pi_{w=1}^{W}\Gamma(\lambda+n_{..k}^{w})}{\Gamma(n_{..k}+W\lambda_{0})})+log(\frac{\Gamma(W\lambda)}{\Gamma(\lambda)^{W}})
++log(\Gamma(m_{.k})+log \gamma]\\ 
+\end{eqnarray*}
+
+\emph{$\Gamma$: gamma function,$\Gamma(n)=(n-1)! $ for integers}
+
+{\bf \emph{GOAL:}}\\
+Clustering problem: find the partition $n_{jk}^{w}$ that maximizes F
+
+\section{2)Modern Heuristic:}
+1) relaxed linear programming doesn't seem to fit\\
+2) convex optimization doesn't either, though F is a convex function. (The derivative of gamma function is digamma function, which is hard for analytic or numerical)\\
+3) So, we choose modern heuristic methods to {\bf SEARCH } for $n_{jk}^{w}$:\\ \\
+i) Big Move: since we have 3 coordinates(j,k,w), we can change only one j or k or w\\
+ii)Small Move: within the big move above, we can local move,split move and merge move 
+\section{3)Additional:}
+i) It has some probability meanings and we can use Gibbs sampling and K-means++ for randomization \\
+ii) Instead of searching the partition $n_{jk}^{w}$, we can try to search configuration $k_{ji}$, the dish that the i th customer in the j th restaurant is served,
+which is easier to search.
+\end{spacing}
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

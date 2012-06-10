@@ -1,0 +1,39 @@
+1) From Teh's npbayes-r21:
+
+/barsdemo
+/distribution
+/hdpmix
+/utilities
+
+2) ME algorith: /hdpcrf (t,k) (mimic /hdpmix (z,m))
+
+a) Data Structure:
+a.1) base_crf.c: record statistics of topics
+a.2) dp_crf.c: record statistics of each document
+a.3) conparam_crf.c: useless here...
+a.4) hdp_crf.c: global structure with base_crf,dp_crf attached
+
+b) Format Transformation:
+b.1) c_dat2crf: transform from raw data to (t,k) representation
+b.2) c_hdp_beta2crf: transform from Teh's (z,m) to ME's (t,k)
+b.3) c_hdp_crf2beta: transform from ME's (t,k) to Teh's (z,m) (useless)
+
+c) Main Function:
+c.1) hdp_crf.c: Low/Mid/High level moves
+c.2) hdp_c_decompclass.c:
+c.3) hdp_c_decompres.c (useless)
+c.4) hdp_c_decompword.c (useless)
+
+d) Utility Function:
+d.1) c_hdp_cclik.m: calculate the DM term
+d.2) c_hdp_ttlik.m: calculate the HDP term
+d.3) FF: calculate the total log probability
+d.4) sparse.c: sparse matrix operations (I/O,+/-,expansion)
+d.5) util_crf.c: small handy auxilary functions 
+d.6) sta.m: statistics of hdp 
+d.7) plot_res.m:plot the restaurant configuration
+d.8) plot_rd2.m:plot the dish configuration
+d.9) check: check hdp structure
+
+3) Test Script:
+test.m: run 10 bar example

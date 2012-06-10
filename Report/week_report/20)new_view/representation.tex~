@@ -1,0 +1,223 @@
+\documentclass{article}
+% Change "article" to "report" to get rid of page number on title page
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{Tabbing}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{graphicx,float,wrapfig}
+\usepackage{multirow}
+\usepackage{enumerate}
+\usepackage{comment} 
+% In case you need to adjust margins:
+\topmargin=-0.45in      %
+\evensidemargin=0in     %
+\oddsidemargin=0in      %
+\textwidth=6.5in        %
+\textheight=9.0in       %
+\headsep=0.25in         %
+
+% Homework Specific Information
+\newcommand{\hmwkTitle}{New Representation to Unify Ideas}
+\newcommand{\hmwkClass}{}
+\newcommand{\hmwkAuthorName}{Donglai\ Wei}
+
+
+% Setup the header and footer
+\pagestyle{fancy}                                                       %
+\lhead{\hmwkAuthorName}                                                 %
+\rhead{\firstxmark}                                                     %
+\lfoot{\lastxmark}                                                      %
+\cfoot{}                                                                %
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}                          %
+\renewcommand\headrulewidth{0.4pt}                                      %
+\renewcommand\footrulewidth{0.4pt}                                      %
+
+% This is used to trace down (pin point) problems
+% in latexing a document:
+%\tracingall
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\begin{enumerate}
+
+% Some tools
+\newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+                                    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+                                   \nobreak\extramarks{#1}{}\nobreak}%
+
+\newlength{\labelLength}
+\newcommand{\labelAnswer}[2]
+  {\settowidth{\labelLength}{#1}%
+   \addtolength{\labelLength}{0.25in}%
+   \changetext{}{-\labelLength}{}{}{}%
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#2\end{minipage}}%
+   \marginpar{\fbox{#1}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \changetext{}{+\labelLength}{}{}{}}%
+
+\setcounter{secnumdepth}{0}
+\newcommand{\homeworkProblemName}{}%
+\newcounter{homeworkProblemCounter}%
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]%
+  {\stepcounter{homeworkProblemCounter}%
+   \renewcommand{\homeworkProblemName}{#1}%
+   \section{\homeworkProblemName}%
+   \enterProblemHeader{\homeworkProblemName}}%
+  {\exitProblemHeader{\homeworkProblemName}}%
+
+\newcommand{\problemAnswer}[1]
+  {\noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}}%
+
+\newcommand{\problemLAnswer}[1]
+  {\labelAnswer{\homeworkProblemName}{#1}}
+
+\newcommand{\homeworkSectionName}{}%
+\newlength{\homeworkSectionLabelLength}{}%
+\newenvironment{homeworkSection}[1]%
+  {% We put this space here to make sure we're not connected to the above.
+   % Otherwise the changetext can do funny things to the other margin
+
+   \renewcommand{\homeworkSectionName}{#1}%
+   \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+   \addtolength{\homeworkSectionLabelLength}{0.25in}%
+   \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+   \subsection{\homeworkSectionName}%
+   \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+  {\enterProblemHeader{\homeworkProblemName}%
+
+   % We put the blank space above in order to make sure this margin
+   % change doesn't happen too soon (else \sectionAnswer's can
+   % get ugly about their \marginpar placement.
+   \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+
+\newcommand{\sectionAnswer}[1]
+  {% We put this space here to make sure we're disconnected from the previous
+   % passage
+
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}%
+   \enterProblemHeader{\homeworkProblemName}\exitProblemHeader{\homeworkProblemName}%
+   \marginpar{\fbox{\homeworkSectionName}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   }%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make title
+\title{\vspace{0.3in}\textmd{\textbf{\hmwkTitle}}}
+\date{2010.8.3}
+\author{\textbf{\hmwkAuthorName}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\begin{spacing}{1.1}
+\maketitle
+\section{0) Notations:}
+Hierarchical Dirichlet Process Model with Dirichlet-Multinomial:\\ \\ \\
+{\bf Hyper-parameter:}\\
+$\alpha,\gamma$: HDP concentration parameter\\
+$\vec \lambda$: Prior for Dirichlet Distribution(W=dim($\vec \lambda$):number of different words;uniform prior:$\lambda_{1},...,\lambda_{W}=\lambda_{0}$)\\ \\ \\
+{\bf Hidden Variable:}\\
+(M-step)z: Discrete assignment($t_{ji},k_{jt}$ correspond to customer,table assignment in Chinese Restaurant Franchise)\\
+(E-step)$\theta$: Multinomial parameter\\ \\ \\
+{\bf Observation:}\\
+x:$\in$(1,...W)\\ \\ \\
+{\bf Auxilary Counting Parameter:}\\
+$n_{jtk}$number of customers in table t Restaurant j serving dish k \\
+$n_{jt.}$number of customers in table t in Restaurant j \\
+$n_{j..}$number of customers in in Restaurant j \\
+$n_{..k}$number of customers serving dish k \\
+$n_{..k}^{w}$number of occurence of word w in dish k \\
+$n_{j.k}$number of customers in the table in Restaurant J that serves dish k \\
+$m_{jk}$number of tables in Restaurant j serving dish k\\
+$m_{..}$number of tables in total \\
+$m_{.k}$number of tables in dish k \\
+\newpage
+\section{1)Representation:}
+J Restaurants(Documents),K dishes(Topics) and W words\\ \\
+{\bf Goal}:(Marginalize $\theta$ and Search over z:)\\
+ Maximize log Probability $L=log \ p(x,z|\lambda)$ \\ \\
+{\bf Crazy Idea:}Represent the data in J-W-K 3D coordinates\\ \\
+0.1) With reasonable $\gamma$,the object function prefer not to have two tables sharing the same dish in the same restaurant. So tables are just the 
+projection of the Dishes into the Restaurants.\\ \\
+0.2) Imagine, in the beginning, every customer is served with a junk dish k=0\\
+For the corresponding J-W plane, we can see it as a grid of integer points with coordinates (j,w).\\
+For each point (j,w), it is associated with a number $n_{j..}^{w}$ (number of word w in Restaurant j).\\ 
+The goal is to distribute these $n_{j..}^{w}$ into different ks to maximize L, under the constraints that $n_{j..}^{w}=\sum_{k=1}^{K}n_{j.k}^{w}$\\ \\ 
+1) Decompose Restaurant j: Fix J=j, Reconfig K-W plane\\ 
+1.0) Sample new tables: drag all the points back to W axis(k=0)+sample promising Ks to form new table\\
+1.1) Local-Table:exchanging datas between lines in W direction\\
+1.2) Search-k: moving (lines that are in W direction) in K direction\\
+1.3) Merge-Table: merging lines that are in W direction\\ \\
+2) Decompose Dish: Fix K=k, Reconfig J-W plane\\ 
+2.0) Decompose Restaurants $j\in\{j: \exists t\ s.t. k_{jt}=k\}$ without dish k: try to explain the J-W planes by others\\
+If the J-W plane cannot be well explained by others:\\
+2.1) Local-Dish: exchanging datas between lines in J direction with the same w coordinate\\
+2.2) Merge-Dish: merge two J-W plane\\
+\subsection{a) z-m View:}
+$L=log p(x,z|\lambda)$
+\\ =$ \sum_{j=1}^{J} [log \frac{\Gamma(\alpha)}{\Gamma(n_{j..}+\alpha)}]+log(\Gamma(\gamma))$\\ \emph{{\small(constant)}}\\ 
++$ \sum_{k=1}^{K} [log(\frac{\Pi_{w=1}^{W}\Gamma(\lambda_{0}+n_{..k}^{w})\ \Pi_{j=1}^{J}\Gamma(n_{jkt_{k}})}{\Gamma(n_{..k}+W\lambda_{0})})+log(\gamma \frac{\Gamma(W\lambda_{0})}{\Gamma(\lambda_{0})^{W}})]$\\\emph{{\small(z-term:J-W plane,counts in J,W direction)}} \\
++$log(\frac{\Pi_{k=1}^{K}\Gamma(m_{.k})}{\Gamma(m_{..}+\gamma)})$\\\emph{{\small(m-term:)}}
+\subsection{b) t-k View:}
+$L=log p(x,z|\lambda)$
+\\ =$ \sum_{j=1}^{J} [log \frac{\Gamma(\alpha)}{\Gamma(n_{j..}+\alpha)}]+log(\Gamma(\gamma))$\\\emph{{\small(constant:)}}\\ 
++$ \sum_{j=1}^{J} \{\sum_{t=1}^{m_{j.}}[log(\Gamma(n_{jt.})+log \alpha]\}$\\\emph{{\small(t-term:K-W plane,counts in W direction)}}\\
++$ log \frac{1}{\Gamma(m_{..}+\gamma)}+\sum_{k=1}^{K} [log(\frac{\Pi_{w=1}^{W}\Gamma(\lambda_{0}+n_{..k}^{w})}{\Gamma(n_{..k}+W\lambda_{0})})+log(\frac{\Gamma(W\lambda_{0})}{\Gamma(\lambda_{0})^{W}})+log(\Gamma(m_{.k})+log \gamma]$\\ \emph{{\small(k-term:J-W plane,counts in J direction)}}
+
+\begin{comment}
+\newpage
+\section{2)Moves for t-k View:}
+Since the Object Function is a NP hard combinatoric problem, we hope to use greedy method to approximate the global optima by parts.
+\subsection{a) Decompose Res $j_{0}$(Reconfig K-W plane):}
+{\bf \emph{Variable:}}\\
+$\{n_{j_{0}.k}^{w}\},k=1,2,...,K_{p}(=K'+n_{j_{0}..});w=1,2,...,W$\\ 
+{\bf \emph{Statistics:}}\\
+K=$\sum_{k=1}^{K_{p}} (1-\delta(n_{..k}))$(Dirac delta function)\\
+$m_{j_{0}k}=1-\delta(\sum_{w=1}^{W} n_{j_{0}.k}^{w})$\\
+$m_{j_{0}.}=\sum_{k=1}^{K} m_{j_{0}k}$\\
+$n_{j_{0}.k}=\sum_{w=1}^{W} n_{j_{0}.k}^{w}$\\
+{\bf \emph{Linear Constraints:}}\\
+$\sum_{k=1}^{K} n_{j_{0}.k}^{w}=n_{j_{0}..}^{w}$, for each w\\
+{\bf \emph{Nonlinear Object Funciton:}}\\
+$L_{decom-res}(j_{0},n_{j_{0}.k}^{w})$\\\\
+=(t-term)$ \sum_{k=1}^{{\bf K}}[(1-\delta({\bf n_{j_{0}.k}}))log(\Gamma({\bf n_{j_{0}.k}})]+{\bf m_{j_{0}.}}log \alpha$\\ \\
++(k-term)$ log \frac{1}{\Gamma(m_{..}'+{\bf m_{j_{0}.}}+\gamma)}+\sum_{k=1}^{{\bf K}} [(1-\delta({\bf n_{j_{0}.k}}))log(\frac{\Pi_{w=1}^{W}\Gamma(\lambda_{0}+n_{..k}^{'w}+{\bf n_{j_{0}.k}^{w}})}{\Gamma(n_{..k}'+{\bf{n_{j_{0}.k}}}+W\lambda_{0})})+log(\frac{\Gamma(W\lambda_{0})}{\Gamma(\lambda_{0})^{W}})
++log(\Gamma(m_{.k}'+{\bf m_{j_{0}k}})+log \gamma]$\\ 
+
+\subsubsection{a.0) Sample new tables:}
+\subsubsection{a.1) Local-Table:}
+{\bf \emph{Move:}}\\
+Change $\{n_{j_{0}.k}^{w}\}$ by 1
+
+Linear Constraints:\\ 
+(1) $\sum_{k=1}^{K} m_{j_{0}k}=m_{j_{0}.}$\\
+(2) $\sum_{t=1}^{m_{j_{0}.}} n_{j_{0}.t}=n_{j_{0}..}$\\
+(3) $\sum_{w=1}^{W}n_{j_{0}k.}^{w}=n_{j_{0}k.}=n_{j_{0}.t}$  for each $k\in k_{set}=\{k:\exists t \ s.t.\ k_{j_{0}t}==k\}$\\
+(4) $\sum_{k\in k_{set}}n_{j_{0}k.}^{w}=n_{j_{0}..}^{w}$   for each w\\
+\\
+Nonlinear Object Funciton:\\ $L_{local-table}(j_{0})$
+\\=$ \sum_{t=1}^{{\bf m_{j_{0}.}}}[log(\Gamma({\bf n_{j_{0}t.}})+log \alpha]$\\ \\
++$ log \frac{1}{\Gamma(m'_{..})+{\bf m_{j_{0}.}+\gamma)}}+\sum_{k\in k_{set}} [log(\frac{\Pi_{w=1}^{W}\Gamma(\lambda_{0}+n_{..k}^{'w}+{\bf n_{j_{0}.k}^{w}})}{\Gamma(n'_{..k}+{\bf n_{j_{0}.k}}+W\lambda_{0})})+log(\frac{\Gamma(W\lambda_{0})}{\Gamma(\lambda_{0})^{W}})
++log(\Gamma(m'_{.k}+{\bf m_{j_{0}k}}))+log \gamma]$\\ 
+
+
+\subsection{b) J-W plane(Decompose Dish):}
+Object Funciton: $L_{decom dish}(k_{0})$
+\\=$ \sum_{j\in\{j:\exists t s.t. k_{jt}=k_{0}\}} \{\sum_{t=1}^{m_{j.}}[log(\Gamma(n_{jt.})+log \alpha]\}$\\ \\
++(k-term:J-W plane)$ log \frac{1}{\Gamma(m_{..})}+\gamma)+\sum_{k=1}^{K} [log(\frac{\Pi_{w=1}^{W}\Gamma(\lambda_{0}+n_{..k}^{w})}{\Gamma(n_{..k}+W\lambda_{0})})+log(\frac{\Gamma(W\lambda_{0})}{\Gamma(\lambda_{0})^{W}})+log(\Gamma(m_{.k})+log \gamma]$\\ 
+
+\end{comment}
+\end{spacing}
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

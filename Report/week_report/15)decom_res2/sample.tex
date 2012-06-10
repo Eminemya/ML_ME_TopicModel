@@ -1,0 +1,163 @@
+\documentclass{article}
+% Change "article" to "report" to get rid of page number on title page
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{Tabbing}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{graphicx,float,wrapfig}
+\usepackage{multirow}
+\usepackage{enumerate}
+% In case you need to adjust margins:
+\topmargin=-0.45in      %
+\evensidemargin=0in     %
+\oddsidemargin=0in      %
+\textwidth=6.5in        %
+\textheight=9.0in       %
+\headsep=0.25in         %
+
+% Homework Specific Information
+\newcommand{\hmwkTitle}{Decompose Restaurant in Detail}
+\newcommand{\hmwkClass}{}
+\newcommand{\hmwkAuthorName}{Donglai\ Wei}
+
+
+% Setup the header and footer
+\pagestyle{fancy}                                                       %
+\lhead{\hmwkAuthorName}                                                 %
+\rhead{\firstxmark}                                                     %
+\lfoot{\lastxmark}                                                      %
+\cfoot{}                                                                %
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}                          %
+\renewcommand\headrulewidth{0.4pt}                                      %
+\renewcommand\footrulewidth{0.4pt}                                      %
+
+% This is used to trace down (pin point) problems
+% in latexing a document:
+%\tracingall
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\begin{enumerate}
+
+% Some tools
+\newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+                                    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+                                   \nobreak\extramarks{#1}{}\nobreak}%
+
+\newlength{\labelLength}
+\newcommand{\labelAnswer}[2]
+  {\settowidth{\labelLength}{#1}%
+   \addtolength{\labelLength}{0.25in}%
+   \changetext{}{-\labelLength}{}{}{}%
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#2\end{minipage}}%
+   \marginpar{\fbox{#1}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \changetext{}{+\labelLength}{}{}{}}%
+
+\setcounter{secnumdepth}{0}
+\newcommand{\homeworkProblemName}{}%
+\newcounter{homeworkProblemCounter}%
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]%
+  {\stepcounter{homeworkProblemCounter}%
+   \renewcommand{\homeworkProblemName}{#1}%
+   \section{\homeworkProblemName}%
+   \enterProblemHeader{\homeworkProblemName}}%
+  {\exitProblemHeader{\homeworkProblemName}}%
+
+\newcommand{\problemAnswer}[1]
+  {\noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}}%
+
+\newcommand{\problemLAnswer}[1]
+  {\labelAnswer{\homeworkProblemName}{#1}}
+
+\newcommand{\homeworkSectionName}{}%
+\newlength{\homeworkSectionLabelLength}{}%
+\newenvironment{homeworkSection}[1]%
+  {% We put this space here to make sure we're not connected to the above.
+   % Otherwise the changetext can do funny things to the other margin
+
+   \renewcommand{\homeworkSectionName}{#1}%
+   \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+   \addtolength{\homeworkSectionLabelLength}{0.25in}%
+   \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+   \subsection{\homeworkSectionName}%
+   \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+  {\enterProblemHeader{\homeworkProblemName}%
+
+   % We put the blank space above in order to make sure this margin
+   % change doesn't happen too soon (else \sectionAnswer's can
+   % get ugly about their \marginpar placement.
+   \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+
+\newcommand{\sectionAnswer}[1]
+  {% We put this space here to make sure we're disconnected from the previous
+   % passage
+
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}%
+   \enterProblemHeader{\homeworkProblemName}\exitProblemHeader{\homeworkProblemName}%
+   \marginpar{\fbox{\homeworkSectionName}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   }%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make title
+\title{\vspace{0.3in}\textmd{\textbf{\hmwkTitle}}}
+\date{2010.6.21}
+\author{\textbf{\hmwkAuthorName}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\begin{spacing}{1.1}
+\maketitle
+
+
+\section{0) Notations }
+Hierarchical Dirichlet Process Model with Dirichlet-Multinomial:\\ 
+{\bf Hyper-parameter:}\\
+$\alpha,\gamma$: HDP concentration parameter\\
+$\lambda$: Prior for Dirichlet Distribution(W:number of different words,$\phi_{1},...,\phi_{W}=\phi$)\\
+{\bf Hidden Variable:}\\
+(M-step)z: Discrete assignment($t_{ji},k_{jt}$ correspond to customer,table assignment in Chinese Restaurant Franchise)\\
+(E-step)$\theta$:Multinomial parameter\\
+{\bf Observation:}\\
+x:$\in$(1,...W)
+\section{1) Algorithm:Decompose Restaurant (DR)}
+GOAL: Maximize log Probability P=$log \ p(x,z|\lambda,\alpha,\gamma)$ \\
+\begin{enumerate}[(i)]
+\item Make Restaurant j into one table $t_{0}$ where customers following uniform distribution:\\
+\small{\emph{($\%$Thus the Probability P($t_{ji}=t_{0}$)=$\frac{1}{W}$)}}
+\item Possible Dish=$\{Nonempty \ dishes\}$
+\item Iterate until no customers are left in this uniform table $t_{0}$:
+\begin{enumerate}
+\item For each dish k$\in$Possible Dish, propose to form a new table $t_{k}$ out of $t_{0}$ with dish k and calculate the change $\Delta P_{k}$:\\
+\small{\emph{($\%$For each customer i in $t_{0}$, sample $t_{ji}\in\{t_{0},t_{k}\}\sim\{\frac{1}{W},\frac{n_{..k}^{w}+\phi}{n_{..k}+W\phi}\}$)}}\\
+\small{\emph{($\%$Propose to form table $t_{k}$ with customers whose $t_{ji}=t_{k}$)}}
+\item Sample a proposal $t_{k*}$ according to the weight and make the new table:\\
+\small{\emph{($\%$Sample a proposal $\{t_{k_{1}},...,t_{k_{K}}\}\sim e^{r_{proposal}\{\Delta P_{k_{1}},...\Delta P_{k_{K}}\}}$)}}\\
+\small{\emph{($\%r_{proposal}>0$, the more decrease of $\Delta P_{k}$, the less propable to form table $t_{k}$)}}
+\item Possible Dish=Possible Dish/$k_{*}$
+\end{enumerate}
+\item TKM:Local search Table/Dish(allowing new dish)+Merge dish\\
+\small{\emph{($\%$Calculate the change of P between present config and config before DR move: $\Delta P$)}}
+\item Decision:\\
+\small{\emph{($\%$Accept the new config with Probability min$\{e^{r_{accept}\Delta P},1\}$}}\\
+\small{\emph{($\%r_{accept}>0$, if P increase,always accept; otherwise more decrease,more likely to reject)}}
+\end{enumerate}
+
+
+
+\end{spacing}
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

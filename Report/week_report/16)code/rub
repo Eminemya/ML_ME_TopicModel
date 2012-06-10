@@ -1,0 +1,18 @@
+\subsection{c)t-k View(Decompose Restaurant)}
+\begin{eqnarray*}
+L&=&log p(x,z|\lambda)\\
+&=&\emph{{\small(t-term)}}\sum_{j=1}^{J} \{\sum_{k=1}^{K}[log(\Gamma(n_{j.k}))+log \alpha](1-\delta(n_{j.k}))\}\\
+&+&\emph{{\small(k-term)}}log \frac{1}{\Gamma(m_{..}+\gamma)}+\sum_{k=1}^{K} [log(\frac{\Pi_{w=1}^{W}\Gamma(\lambda_{0}+n_{..k}^{w})}{\Gamma(n_{..k}+W\lambda_{0})})+log(\frac{\Gamma(W\lambda_{0})}{\Gamma(\lambda_{0})^{W}})
++log(\Gamma(m_{.k})+log \gamma]\\
+&+&\emph{{\small(constant)}}\sum_{j=1}^{J} [log \frac{\Gamma(\alpha)}{\Gamma(n_{j..}+\alpha)}]+log(\Gamma(\gamma))\\ 
+\end{eqnarray*}
+\subsection{d)t-w View(Decompose Word)}
+\begin{eqnarray*}
+L&=&log p(x,z|\lambda)\\
+&=&\emph{{\small(t-term)}}\sum_{j=1}^{J} \{\sum_{k=1}^{K}[log(\Gamma(n_{j.k}))+log \alpha](1-\delta(n_{j.k}))\}\\
+&+&\emph{{\small(w-term)}}\sum_{w=1}^{W} \{\sum_{k=1}^{K}[log(\Gamma(\lambda_{0}+n_{..k}^{w}))-log(\Gamma(\lambda_{0}))]\}\\
+&+&\emph{{\small(k-term)}}log \frac{1}{\Gamma(m_{..}+\gamma)}+\sum_{k=1}^{K} [log(\frac{\Gamma(W\lambda_{0})}{\Gamma(n_{..k}+W\lambda_{0})})+log(\Gamma(m_{.k})+log \gamma]\\
+&+&\emph{{\small(constant)}}\sum_{j=1}^{J} [log \frac{\Gamma(\alpha)}{\Gamma(n_{j..}+\alpha)}]+log(\Gamma(\gamma))\\ 
+\end{eqnarray*}
+
+

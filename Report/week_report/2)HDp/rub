@@ -1,0 +1,103 @@
+
+
+$p(\vec x,\theta|\vec z, \lambda)=\Pi_{n=1}^{N}[p(x_{n}|z_{n},\theta)]p(\theta|\lambda)p(\vec z|\lambda)$\\ \\
+$=\Pi_{n=1}^{N}[\mathcal{N}(x_{n}|z_{n},\mu,\Omega)] \times \mathcal{N}(\mu|m_{0},\xi_{0}\Omega)\mathcal{W}(\Omega|\eta_{0},B_{0})
+\times \frac{\Gamma(N+\phi_{0})}{\Gamma(\phi_{0})}\phi_{0}^{K}\Pi_{c=1}^{K}[\frac{1}{\Gamma(N_{c})}]$ \\ \\
+=$\mathcal{N}(\mu|m_{c},\xi_{c}\Omega_{c})\mathcal{W}(\Omega_{c}|\eta_{c},B_{c})\times \frac{\Gamma(N+\phi_{0})}{\Gamma(\phi_{0})}\phi_{0}^{K}\Pi_{c=1}^{K}[\frac{1}{\Gamma(N_{c})}]$\\ \\
+$\phi_{c}=\phi_{0}+N_{c}$\\
+$m_{c}=\frac{N_{c}\bar x_{c}+\xi_{0}m_{0}}{\xi_{c}}$\\
+$B_{c}=B_{0}+N_{c}S_{c}+\frac{N_{c}\xi_{0}}{\xi_{c}}(\bar x_{c}-m_{0})(\bar x_{c}-m_{0})^{T}$\\
+$\eta_{c}=\eta_{0}+N_{c}$\\
+$\xi_{c}=\xi_{0}+N_{c}$\\ \\ \\
+2) For a given $\vec z^{*}$,integrate out $\theta$, get the Free energy:\\
+$log(p(\vec x|\lambda)) \approx log (\int_\theta \! p(\vec x,\vec z^{*},\theta|\lambda) \, d\theta)=\int_\theta \! p(\theta|\vec z^{*},\vec x,\lambda) \, d\theta \ p(\vec z^{*}|\lambda)$\\ \\
+$=log[\int_\theta \! \mathcal{N}(\mu|m_{c},\xi_{c}\Omega_{c})\mathcal{W}(\Omega_{c}|\eta_{c},B_{c}) \, d\theta \ ]+ \ log(\frac{\Gamma(N+\phi_{0})}{\Gamma(\phi_{0})}\phi_{0}^{K}\Pi_{c=1}^{K}[\frac{1}{\Gamma(N_{c})}])$\\ \\
+$=[\varPsi(\bar \Omega,\bar \mu)-\varPsi(\Omega,\mu)]+[\frac{1}{K}log \frac{\Gamma(N+\phi_{0})}{\Gamma(\phi_{0})} -log(\Gamma(N_{c}))-log \phi_{0}]$\\ \\
+$=[\sum_{c=1}^{K_{+}}[\frac{DN_{c}}{2}log\pi+\frac{D}{2}log\frac{\xi_{c}}{\xi_{0}}log det(B_{c})
+-\frac{\eta_{0}}{2}log det(B_{0})-log \frac{\Gamma_{D}(\frac{\eta_{c}}{2})}{\Gamma_{D}(\frac{\eta_{0}}{2})}]$\\ \\
+\ \  \underline{ $+[\frac{1}{K_{+}}log \frac{\Gamma(N+\phi_{0})}{\Gamma(\phi_{0})} -log(\Gamma(N_{c}))-log \phi_{0}]$}\\ \\
+
+where:\\
+$\Gamma_{D}(x)=\pi^{\frac{D(D-1)}{4}}\Pi_{i=1}^{D}\Gamma(x+\frac{1-i}{2})$
+
+
+\section{2 CRF for HDP}
+\subsection*{2.1 CRP for DPmixture}
+One step back to derive the Allocation term $p(z_{1},...,z_{N}|\phi_{0})$ in the free energy with CRP.\\
+Recall that \large {\bf  Free Energy:} \\
+$\mathcal{F}([z],K_{+})=\sum_{c=1}^{K_{+}}[\frac{DN_{c}}{2}log\pi+\frac{D}{2}log\frac{\xi_{c}}{\xi_{0}}log det(B_{c})
+-\frac{\eta_{0}}{2}log det(B_{0})-log \frac{\Gamma_{D}(\frac{\eta_{c}}{2})}{\Gamma_{D}(\frac{\eta_{0}}{2})}$\\
+\ \  \underline{ $+\frac{1}{K_{+}}log \frac{\Gamma(N+\phi_{0})}{\Gamma(\phi_{0})} -log(\Gamma(N_{c}))-log \phi_{0}]$}\\
+\\ \\ Known: N datas,K clusters, {$N_{i}$} datas in each cluster,$\phi_{0}$ for new cluster\\
+ \\ Unknown: Cluster Assignment $z_{n}$\\
+\\ \\ Allocation Term: \\
+$p(z_{1},...,z_{N}|\phi_{0})=\Pi_{j=1}^{j=N}p(z_{j}|z_{1},...,z_{j-1},\phi_{0})$\\ \\
+$p(z_{j}|z_{1},...,z_{j-1},\phi_{0})=\sum_{k=1}^{K(j)}\frac{m_{k(j)}}{j-1+\phi_{0}}\delta_{z_{j}=k}+\frac{\phi_{0}}{j-1+\phi_{0}}\delta_{z_{j}=K(j)+1}$\\ \\
+1) Partition:$\Pi_{j=1}^{j=N}\frac{1}{\phi_{0}+j-1}=\frac{\Gamma(\phi_{0})}{\Gamma(N+\phi_{0})}$\\ \\
+2) Forming new clusters:$\phi_{0}^{K}$\\ \\
+3) Accumulating for all clusters:$\Pi_{j=1}^{j=N}(N_{j}-1)!=\Pi_{j=1}^{j=N}\Gamma(N_{j})$\\ \\
+So,$-log(p(z_{1},...,z_{N}|\phi_{0}))=\sum_{c=1}^{K}\underline{ +\frac{1}{K}log \frac{\Gamma(N+\phi_{0})}{\Gamma(\phi_{0})} -log(\Gamma(N_{c}))-log \phi_{0}}\\$ \\
+\subsection*{2.2 CRF for HDP}
+Here, for the Gaussian case:\\
+$\lambda=(m_{0},B_{0},\eta_{0},\xi_{0})$\\
+$\theta_{k}=(\mu_{k},\Omega_{k})$\\ \\
+
+Known: \\
+1) Global: J Restaurants, K global dishes, T tables, N datas,\\
+$t_{ji}:$ the table that customer i in Restaurant j sits;\\
+$k_{jt}:$ the dish that table t in Restaurant j serves;\\
+$\vec k:$ new dish different from what has been served;\\
+$\vec t:$ the table different from what has been occupied;\\
+2) Counting so far (during the process)\\
+$m_{jk}:$ number of tables in Restaurant j serving dish k;\\
+$m_{.k}:$ number of tables serving dish k;\\
+$m_{j.}:$ number of tables in Restaurant j;\\
+$m_{..}:$ number of tables;\\
+$n_{jtk}:$ number of customers in Restaurant j at table t eating dish k;\\
+$n_{jt.}:$ number of customers in Restaurant j at table t;\\
+$n_{j..}:$ number of customers in Restaurant j;\\
+
+Unknown: Table Assignment $t_{ji}$,Dish Assignment $k_{jt}$\\ 
+Allocation Term: \\ \\
+$p(k_{11},...,k_{JT_{J}}|\gamma)=\Pi_{j=1}^{J}(\Pi_{i=1}^{T_{j}}p(k_{ji}|\vec k_{1},...\vec k_{j-1},k_{j1},...,k_{j(i-1)},\gamma))$\\ \\
+$p(t_{11},...,t_{JN_{J}}|\alpha)=\Pi_{j=1}^{J}(\Pi_{i=1}^{N_{j}}p(t_{ji}|t_{j1},...,t_{j(i-1)},\alpha))$\\ \\
+$p(k_{jt}|\vec k_{1},...\vec k_{j-1},k_{j1},...,k_{j(t-1)},\gamma)=\sum_{k=1}^{K}\frac{m_{.k}}{m_{..}-1+\gamma}\delta_{k_{jt}=k}+\frac{\gamma}{m_{..}-1+\gamma}\delta_{k_{ji}=\vec k}$\\ \\
+$p(t_{ji}|t_{j1},...,t_{j(i-1)},\alpha)=\sum_{t=1}^{m_{j.}}\frac{n_{jt.}}{i-1+\alpha}\delta_{t_{ji}=t}+\frac{\alpha}{i-1+\alpha}\delta_{t_{ji}=\vec t}$\\ \\
+
+1) Partition:\\
+k:\ $\Pi_{w=1}^{\sum_{j=1}^{J}m_{j.}}\frac{1}{\gamma+w-1}=\Pi_{w=1}^{m_{..}}\frac{1}{\gamma+w-1}=\frac{\Gamma(\gamma)}{\Gamma(T+\gamma)}$\\ \\
+t:\ $\Pi_{j=1}^{J}\Pi_{i=1}^{i=n_{j..}}\frac{1}{\alpha+i-1}=\Pi_{j=1}^{j=J}\frac{\Gamma(\alpha)}{\Gamma(n_{j..}+\alpha)}$\\ \\
+
+2) Forming new clusters (1st point in the cluster): \\
+k: \ $\gamma^{K}$\\ \\
+t: \ $\Pi_{j=1}^{J}\alpha^{m_{j.}}$\\ \\
+
+3) Accumulating for each clusters (other points in the cluster): \\
+
+k: \ $\Pi_{k=1}^{k=K}(m_{.k}-1)!=\Pi_{k=1}^{k=K}\Gamma(m_{.k})$\\ \\
+t: \ $\Pi_{j=1}^{j=J}\Pi_{t=1}^{t=m_{j.}}(n_{jt.}-1)!=\Pi_{j=1}^{j=J}\Pi_{t=1}^{t=m_{j.}}\Gamma(n_{jt.})$\\ \\
+
+So,
+\large {\bf  Free Energy:} \\
+$\mathcal{F}([z])$\\ =\\
+(Likelihood)$ \sum_{k=1}^{K} [\frac{D n_{..k}}{2}log\pi+\frac{D}{2}log\frac{\xi_{k}}{\xi_{0}}+\frac{\eta_{k}}{2}log det(B_{k})-\frac{\eta_{0}}{2}log det(B_{0})
+-log \frac{\Gamma_{D}(\frac{\eta_{k}}{2})}{\Gamma_{D}(\frac{\eta_{0}}{2})}]$
+\\
++
+\\
+(Allocation:)$\underline{\sum_{j=1}^{J}\sum_{t=1}^{m_{j.}}[\frac{1}{m_{j.}}log \frac{\Gamma(n_{j..}+\alpha)}{\Gamma(\alpha)} -log(\Gamma(n_{jt.})-log \alpha]+
+ \sum_{k=1}^{K} [\frac{1}{K}log \frac{\Gamma(T+\gamma)}{\Gamma(\gamma)} -log(\Gamma(n_{..k})-log \gamma]}$
+\\ \\
+=\\
+(t-term)$ \sum_{j=1}^{J}\sum_{t=1}^{m_{j.}}[\underline{\frac{1}{m_{j.}}log \frac{\Gamma(n_{j..}+\alpha)}{\Gamma(\alpha)} -log(\Gamma(n_{jt.})-log \alpha
++\frac{1}{J m_{j.}}log \frac{\Gamma(T+\gamma)}{\Gamma(\gamma)}]}$\\ \\
++(k-term)$\sum_{k=1}^{K} [\frac{n_{..k}D}{2}log\pi+\frac{D}{2}log\frac{\xi_{k}}{\xi_{0}}+\frac{\eta_{k}}{2}log det(B_{k})-\frac{\eta_{0}}{2}log det(B_{0})
+-log \frac{\Gamma_{D}(\frac{\eta_{k}}{2})}{\Gamma_{D}(\frac{\eta_{0}}{2})}
+-\underline{log(\Gamma(n_{..k})-log \gamma]}$\\
+where:\\
+$\xi_{k}=\xi_{0}+n_{..k}$\\
+$m_{k}=\frac{n_{..k} \vec x_{(k_{jt_{ji}}=k)}+\xi_{0}m_{0}}{\xi_{k}}$\\
+$\eta_{k}=\eta_{0}=n_{..k}$\\
+$B_{k}=B_{0}+n_{..k}S_{k}+\frac{n_{..k}\xi_{0}}{\xi_{k}}(\vec x_{(k_{jt_{ji}}=k)}-m_{0})(\vec x_{(k_{jt_{ji}}=k)}-m_{0})^{T}$\\
+$S_{k}: sample covariance$\\
+

@@ -1,0 +1,321 @@
+\documentclass{article}
+% Change "article" to "report" to get rid of page number on title page
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{Tabbing}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{graphicx,float,wrapfig}
+\usepackage{multirow}
+\usepackage{enumerate,alltt}
+\usepackage{fixltx2e}
+% In case you need to adjust margins:
+\topmargin=-0.45in      %
+\evensidemargin=0in     %
+\oddsidemargin=0in      %
+\textwidth=6.5in        %
+\textheight=9.0in       %
+\headsep=0.25in         %
+
+% Homework Specific Information
+\newcommand{\hmwkTitle}{Complexity Analysis}
+\newcommand{\hmwkClass}{}
+\newcommand{\hmwkAuthorName}{Donglai\ Wei}
+
+
+% Setup the header and footer
+\pagestyle{fancy}                                                       %
+\lhead{\hmwkAuthorName}                                                 %
+\rhead{\firstxmark}                                                     %
+\lfoot{\lastxmark}                                                      %
+\cfoot{}                                                                %
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}                          %
+\renewcommand\headrulewidth{0.4pt}                                      %
+\renewcommand\footrulewidth{0.4pt}                                      %
+
+% This is used to trace down (pin point) problems
+% in latexing a document:
+%\tracingall
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\begin{enumerate}
+
+% Some tools
+\newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+                                    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+                                   \nobreak\extramarks{#1}{}\nobreak}%
+
+\newlength{\labelLength}
+\newcommand{\labelAnswer}[2]
+  {\settowidth{\labelLength}{#1}%
+   \addtolength{\labelLength}{0.25in}%
+   \changetext{}{-\labelLength}{}{}{}%
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#2\end{minipage}}%
+   \marginpar{\fbox{#1}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \changetext{}{+\labelLength}{}{}{}}%
+
+\setcounter{secnumdepth}{0}
+\newcommand{\homeworkProblemName}{}%
+\newcounter{homeworkProblemCounter}%
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]%
+  {\stepcounter{homeworkProblemCounter}%
+   \renewcommand{\homeworkProblemName}{#1}%
+   \section{\homeworkProblemName}%
+   \enterProblemHeader{\homeworkProblemName}}%
+  {\exitProblemHeader{\homeworkProblemName}}%
+
+\newcommand{\problemAnswer}[1]
+  {\noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}}%
+
+\newcommand{\problemLAnswer}[1]
+  {\labelAnswer{\homeworkProblemName}{#1}}
+
+\newcommand{\homeworkSectionName}{}%
+\newlength{\homeworkSectionLabelLength}{}%
+\newenvironment{homeworkSection}[1]%
+  {% We put this space here to make sure we're not connected to the above.
+   % Otherwise the changetext can do funny things to the other margin
+
+   \renewcommand{\homeworkSectionName}{#1}%
+   \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+   \addtolength{\homeworkSectionLabelLength}{0.25in}%
+   \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+   \section{\homeworkSectionName}%
+   \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+  {\enterProblemHeader{\homeworkProblemName}%
+
+   % We put the blank space above in order to make sure this margin
+   % change doesn't happen too soon (else \sectionAnswer's can
+   % get ugly about their \marginpar placement.
+   \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+
+\newcommand{\sectionAnswer}[1]
+  {% We put this space here to make sure we're disconnected from the previous
+   % passage
+
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}%
+   \enterProblemHeader{\homeworkProblemName}\exitProblemHeader{\homeworkProblemName}%
+   \marginpar{\fbox{\homeworkSectionName}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   }%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make title
+\title{\vspace{0.3in}\textmd{\textbf{\hmwkTitle}}}
+\date{2010.10.03}
+\author{\textbf{\hmwkAuthorName}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\begin{spacing}{1.1}
+\maketitle
+\section{0.Notation}
+{\bf Restaurant-Level}:\\\\
+L-c:Local customer move, find the best table for a customer given others fixed\\
+L-t:Local table move, find the best dish for a table given others fixed\\
+M-t:Merge table move, merge two tables\\
+DR:Decompose Restaurant\\
+{\bf Dish-Level}:\\\\
+L-d: Local word move, reallocate the words distribution in a dish given others fixed\\
+M-d:Merge dish move, merge two dishes\\
+DD:Decompose Dish\\ \\ \\
+$m_{.k}$ is the number of tables in dish k\\
+$m_{j.}$ the number of tables in Restaurant j\\
+$n_{jt.}$ the number of customers in Restaurant j table t\\
+$n_{j..}$ the number of tables in Restaurant j\\
+$n_{..k}$ the number of customers in dish k\\
+$n_{..k}^{w}$ the number of tables in dish k with word w.\\
+\begin{table}[t]
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+{\bf Method} &{\bf Complexity} \\ 
+\hline
+\bf{L-c} & $\mathcal{O}(n_{j..}m_{j.})$\\
+\hline
+\bf{L-t} & $\mathcal{O}(Km_{j.})$\\
+\hline
+\bf{M-t} & $\mathcal{O}(m_{j.}^{2})$\\
+\hline
+\bf{DR}&$\mathcal{O}((m_{j.}+K^{2})n_{j..}+(K+m_{j.})m_{j.})$\\
+\hline
+\bf{L-d} & $\mathcal{O}(n_{..k}^{w}+m_{..})$\\
+\hline
+\bf{M-d} & $\mathcal{O}(K^{2})$\\
+\hline
+\bf{DD}&   $K*[\mathcal{O}($L-d$)+\mathcal{O}($M-d$)] +m_{..}*\mathcal{O}(DR)$\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+\newpage
+J restaurants, K dishes, L:log-probability(K-term+T-term)
+\section{1) Restaurant-level}
+\subsection{1.1) local-merge move}
+{\bf Local-Customer:} $\mathcal{O}(m_{j.}^{2}\dfrac{n_{j..}}{m_{j.}})=\mathcal{O}(n_{j..}m_{j.})$\\
+{\bf Local-Table:}    $\mathcal{O}(m_{j.}K)$\\ 
+{\bf Merge-Table:}    $\mathcal{O}(m_{j.}^{2})$\\
+\begin{alltt}
+While L doesn't increase any more:    
+     \(\%\)a)Local-Customer:
+        For t\textsubscript{1}=Randperm(m\textsubscript{j.}):
+             For t\textsubscript{2}=Randperm(m\textsubscript{j.}\(\setminus\) t\textsubscript{1}):
+                While local move can be made:
+                      Greedily move one customer at a time from \(t\textsubscript{1}\) to \(t\textsubscript{2}\) if the move increases {\bf L'(T)} 
+                End
+             End
+        End
+     
+      \(\%\)b)Local-Table:
+        For \(t\textsubscript{1}\)=Randperm(\(m\textsubscript{j.}\)):
+            Assign \(t\textsubscript{1}\) to the dish which increase L most(allow it to have new dish)
+        End
+              
+      \(\%\)c)Merge Table:
+        For \(t\textsubscript{1}\)=Randperm(\(m\textsubscript{j.}\)):
+            Merge table \(t\textsubscript{1}\) to the table in j with the best dish k, which increase \({\bf L'(T)}\) most
+            \(\%\)if cannot increase L'(T),then leave it alone
+        End
+End
+\end{alltt}
+\subsection{1.2) Decompose restaurant}
+{\bf Initialization:} $\mathcal{O}(n_{j..}K^{2})$ ($\#$proposed table$\propto$K)\\
+{\bf Local-Merge Moves in (1.1):} $\mathcal{O}(m_{j.}n_{j..})+\mathcal{O}(m_{j.}K)+\mathcal{O}(m_{j.}^2)$\\ \\
+In all, {\bf Decompose-Restaurant}: $\mathcal{O}((m_{j.}+K^{2})n_{j..})+(m_{j.}(K+(m_{j.}))$
+\begin{alltt}
+\(\%a) Initialization\)
+Make Restaurant j into one table \(t\textsubscript{0}\) where customers following uniform distribution
+\(\%(P(t\textsubscript{ji}=t\textsubscript{0})=\frac{1}{W})\)      
+Possible Dish=\(\{Nonempty \ dishes\}\setminus k\textsubscript{0}\)      
+While Possible Dish is not empty:      
+      For each dish \(k\in\)Possible Dish:          
+          For each customer i in \(t\textsubscript{0}\):
+              sample \(t\textsubscript{ji}\in\{t\textsubscript{0},t\textsubscript{k}\}\sim\{\frac{1}{W},\frac{n\textsubscript{..k}\textsuperscript{w}+\phi}{n\textsubscript{..k}+W\phi}\}\)                
+          End
+      Propose to form table \(t\textsubscript{k}\) with customers whose \(t\textsubscript{ji}=t\textsubscript{k}\)
+      Calculate the change \(d\textsubscript{k}\) for k-term and w-term:
+      End
+      \(\%\)Sample a proposal \(t\textsubscript{k*}\) according to the weight and make the new table:
+      Sample a proposal \(\{t\textsubscript{k\textsubscript{1}},...,t\textsubscript{k\textsubscript{K}}\}\sim e\textsuperscript{r\textsubscript{proposal}\{d\textsubscript{k\textsubscript{1}},...,d\textsubscript{k\textsubscript{K}}\}}\)
+      \(\%r\textsubscript{proposal}>0\), the more decrease of \(d\textsubscript{k}\), the less propable to form table \(t\textsubscript{k}\)
+      Possible Dish=Possible Dish\(\setminus k\textsubscript{*}\)
+      \(t\textsubscript{0}=t\textsubscript{0} \setminus t\textsubscript{k\textsubscript{*}}\)
+End
+If there are still customers left in \(t\textsubscript{0}\):
+   make it a new table with a new dish K+1
+End
+
+\(\%\)b)Refinement for Restaurant j(Local-Search and Merge Move for tables in Restaurant j)
+LM-Restaurant(j,T)
+
+\(\%\)c)Decision
+Calculate the change of L between present Restaurant j config and its previous config: 
+\(\Delta L'=\Delta k-term+{\bf T}\Delta t-term+\Delta w-term\)
+If(\(\Delta L'<\)0):
+    Accept the new configuration
+Else:
+    Restore Previous Config
+End    
+\end{alltt}
+
+\section{2) Dish-level}
+\section{2.1) Local-Dish}
+{\bf Find promising dishes:} $\mathcal{O}(m_{..})$\\
+{\bf Find the best approximated Reallocation of word w:} $\mathcal{O}(n_{..k}^{w})$\\ \\
+In all: $\mathcal{O}(n_{..k}^{w}+m_{..})$
+\begin{alltt}
+Dish List=\(\{Nonempty \ dishes\}\setminus k\)
+For w=Randperm(Words Occur in Dish k):
+    
+    \(\%\)i) Find promising dishes(appear most often with the tables having word w in dish k)
+    For kk=Dish List
+        Restaurant_index(kk)=index of restaurants in dish kk, that have tables serving dish k       
+        Restaurant_count(kk)=length(Restaurant_index(kk))
+    End 
+    Promising_Dishes=find(Restaurant_count==max(Restaurant_count))
+
+    \(\%\)ii) Find the best approximated Reallocation of word w:
+    \(\Delta L\)=0; 
+    For kkk=Promising_Dishes: 
+	
+         \(\%\)a)Naive Reallocation:	
+        For j=Restaurant_index(kkk)
+            Assign all of words w from the table serving dish k to the table serving dish kkk
+        End
+        Calculate the change of L between present config and previous config:\(l\textsubscript{0}\)
+	
+        \(\%\)b)Gready Search:
+        \(\Delta l\)=1
+        While \(\Delta l>\)0
+              \(\Delta l\textsubscript{k}\)=change of L by assigning one word w from dish kkk back to dish k
+              \(\Delta l\textsubscript{t}\)=max change of L by assigning one word w from dish kkk back to dish k in Restaurant j)
+              \(\Delta l=\Delta l\textsubscript{k}+\Delta l\textsubscript{t}\)
+        End
+        \(\Delta L=max(\Delta L,l\textsubscript{0}+\Delta l)\)
+    End 
+
+    \(\%\)iii)Decision:
+    If \(\Delta L>\)0
+        Accept new config
+    Else
+        Restore previous config
+    End 
+End 
+\end{alltt}
+
+\subsection{2.2) Merge-Dish}
+{\bf Merge-Dish:} $\mathcal{O}(K^{2})$\\
+\begin{alltt}
+Dish List=\(\{Nonempty \ dishes\}\setminus k\)
+ 
+While Dish List is not empty:
+    Randomly pick a dish k\(\in\) Dish List
+    Dish List=Dish List\(\setminus\)k
+    Merge dish k to the dish\(\in\) Dish List which increase \({\bf L'(T)}\) mostly
+    \(\%\)if cannot increase L'(T), then leave it alone
+End
+ 
+\end{alltt}
+
+\subsection{2.3) Decompose Dish}
+{\bf Initialization:}  $m_{.k}\mathcal{O}(DR)$\\
+{\bf Local-Merge Move:}$\mathcal{O}(n_{..k}^{w}+m_{..})+\mathcal{O}(K^{2})$\\ \\
+In all,{\bf Decompose Dish:}$K*\left[\mathcal{O}($L-d$)+\mathcal{O}($M-d$)\right] +m_{..}*\mathcal{O}(DR)$
+\begin{alltt}
+For k=Randperm(K)
+
+   \(\%a)Initialization: Reconfig without Dish k\)
+      For j=restaurants which have tables serving dish k
+          Decompose Restaurant(j,Temperature,k);
+      End
+
+   \(\%b)Merge new proposed dishes+Local-Dish\)
+      For k=new proposed dishes
+          Merge Dish(Temperature,k);
+      End     
+      For w=words which appear in dish k
+          Local-Dish(w,Temperature,k);
+      End 
+
+   \(\%d)Decision\)
+      If(\(\Delta k-term+\Delta w-term+{\bf Temperature}*\Delta t-term<\)0):
+          Accept new config
+      End
+End
+\end{alltt}
+\end{spacing}
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

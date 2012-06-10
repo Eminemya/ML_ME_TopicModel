@@ -1,0 +1,173 @@
+\documentclass{article}
+% Change "article" to "report" to get rid of page number on title page
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{Tabbing}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{graphicx,float,wrapfig}
+\usepackage{multirow}
+\usepackage{enumerate}
+\usepackage{comment} 
+% In case you need to adjust margins:
+\topmargin=-0.45in      %
+\evensidemargin=0in     %
+\oddsidemargin=0in      %
+\textwidth=6.5in        %
+\textheight=9.0in       %
+\headsep=0.25in         %
+
+% Homework Specific Information
+\newcommand{\hmwkTitle}{Decompose Restaurant:\\ Heuristic Search+Linear Programming}
+\newcommand{\hmwkClass}{}
+\newcommand{\hmwkAuthorName}{Donglai\ Wei}
+
+
+% Setup the header and footer
+\pagestyle{fancy}                                                       %
+\lhead{\hmwkAuthorName}                                                 %
+\rhead{\firstxmark}                                                     %
+\lfoot{\lastxmark}                                                      %
+\cfoot{}                                                                %
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}                          %
+\renewcommand\headrulewidth{0.4pt}                                      %
+\renewcommand\footrulewidth{0.4pt}                                      %
+
+% This is used to trace down (pin point) problems
+% in latexing a document:
+%\tracingall
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\begin{enumerate}
+
+% Some tools
+\newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+                                    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+                                   \nobreak\extramarks{#1}{}\nobreak}%
+
+\newlength{\labelLength}
+\newcommand{\labelAnswer}[2]
+  {\settowidth{\labelLength}{#1}%
+   \addtolength{\labelLength}{0.25in}%
+   \changetext{}{-\labelLength}{}{}{}%
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#2\end{minipage}}%
+   \marginpar{\fbox{#1}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \changetext{}{+\labelLength}{}{}{}}%
+
+\setcounter{secnumdepth}{0}
+\newcommand{\homeworkProblemName}{}%
+\newcounter{homeworkProblemCounter}%
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]%
+  {\stepcounter{homeworkProblemCounter}%
+   \renewcommand{\homeworkProblemName}{#1}%
+   \section{\homeworkProblemName}%
+   \enterProblemHeader{\homeworkProblemName}}%
+  {\exitProblemHeader{\homeworkProblemName}}%
+
+\newcommand{\problemAnswer}[1]
+  {\noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}}%
+
+\newcommand{\problemLAnswer}[1]
+  {\labelAnswer{\homeworkProblemName}{#1}}
+
+\newcommand{\homeworkSectionName}{}%
+\newlength{\homeworkSectionLabelLength}{}%
+\newenvironment{homeworkSection}[1]%
+  {% We put this space here to make sure we're not connected to the above.
+   % Otherwise the changetext can do funny things to the other margin
+
+   \renewcommand{\homeworkSectionName}{#1}%
+   \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+   \addtolength{\homeworkSectionLabelLength}{0.25in}%
+   \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+   \subsection{\homeworkSectionName}%
+   \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+  {\enterProblemHeader{\homeworkProblemName}%
+
+   % We put the blank space above in order to make sure this margin
+   % change doesn't happen too soon (else \sectionAnswer's can
+   % get ugly about their \marginpar placement.
+   \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+
+\newcommand{\sectionAnswer}[1]
+  {% We put this space here to make sure we're disconnected from the previous
+   % passage
+
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}%
+   \enterProblemHeader{\homeworkProblemName}\exitProblemHeader{\homeworkProblemName}%
+   \marginpar{\fbox{\homeworkSectionName}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   }%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make title
+\title{\vspace{0.3in}\textmd{\textbf{\hmwkTitle}}}
+\date{2010.8.3}
+\author{\textbf{\hmwkAuthorName}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\begin{spacing}{1.1}
+\maketitle
+
+\section{0)Set Up:}
+{\bf \emph{Variable:}}\\
+$\{n_{j_{0}.k}^{w}\}$number of words in Restaurant $j_{0}$,serving dish k$,k=1,2,...,K_{p}(=K'+n_{j_{0}..});w=1,2,...,W$\\ \\
+{\bf \emph{Statistics:}}\\
+%K=$\sum_{k=1}^{K_{p}} (1-\delta(n_{..k}))$(Dirac delta function)\\
+$k_{set}=\{k:\exists t \ s.t.\ k_{j_{0}t}=k\}$\\
+$m_{j_{0}k}=1-\delta(\sum_{w=1}^{W} n_{j_{0}.k}^{w})$\\
+$m_{j_{0}.}=\sum_{k=1}^{K} m_{j_{0}k}$\\
+$n_{j_{0}.k}=\sum_{w=1}^{W} n_{j_{0}.k}^{w}$\\ \\
+{\bf \emph{Linear Constraints:}}\\
+$\sum_{k=1}^{K} n_{j_{0}.k}^{w}=n_{j_{0}..}^{w}$, for each w\\\\
+{\bf \emph{Nonlinear Object Funciton:}}\\
+$L_{decom-res}(j_{0},n_{j_{0}.k}^{w})$\\\\
+%=(t-term)$ \sum_{k=1}^{{\bf K}}[(1-\delta({\bf n_{j_{0}.k}}))log(\Gamma({\bf n_{j_{0}.k}})]+{\bf m_{j_{0}.}}log \alpha$\\ \\
+%+(k-term)$ log \frac{1}{\Gamma(m_{..}'+{\bf m_{j_{0}.}}+\gamma)}+\sum_{k=1}^{{\bf K}} [(1-\delta({\bf n_{j_{0}.k}}))log(\frac{\Pi_{w=1}^{W}\Gamma(\lambda_{0}+n_{..k}^{'w}+{\bf n_{j_{0}.k}^{w}})}{\Gamma(n_{..k}'+{\bf{n_{j_{0}.k}}}+W\lambda_{0})})+log(\frac{\Gamma(W\lambda_{0})}{\Gamma(\lambda_{0})^{W}})
+%+log(\Gamma(m_{.k}'+{\bf m_{j_{0}k}})+log \gamma]$\\ 
+=(t-term)$ \sum_{k\in {\bf k_{set}}}[log(\Gamma({\bf n_{j_{0}.k}})]+{\bf m_{j_{0}.}}log \alpha$\\ \\
++(k-term)$ log \frac{1}{\Gamma(m_{..}'+{\bf m_{j_{0}.}}+\gamma)}+\sum_{k\in {\bf k_{set}}}[log(\frac{\Pi_{w=1}^{W}\Gamma(\lambda_{0}+n_{..k}^{'w}+{\bf n_{j_{0}.k}^{w}})}{\Gamma(n_{..k}'+{\bf{n_{j_{0}.k}}}+W\lambda_{0})})+log(\frac{\Gamma(W\lambda_{0})}{\Gamma(\lambda_{0})^{W}})
++log(\Gamma(m_{.k}'+{\bf m_{j_{0}k}})+log \gamma]$\\ 
+
+\section{1)Linear Programming:}
+If we know:\\ \\
+1) $m_{j_{0}.}=card(k_{set})\ \ \ \ \ \ \ \ \ $   get rid of $ log \frac{1}{\Gamma(m_{..}'+{\bf m_{j_{0}.}}+\gamma)}+{\bf m_{j_{0}.}}log \alpha$\\ 
+2) $\vec n_{j_{0}t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ $            get rid of $\sum_{k\in k_{set}}[log(\Gamma({\bf n_{j_{0}.k}})+log(\frac{1}{\Gamma(n_{..k}'+{\bf{n_{j_{0}.k}}}+W\lambda_{0})})]$\\
+3) $k_{set}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  $                    get rid of $log(\frac{\Gamma(W\lambda_{0})}{\Gamma(\lambda_{0})^{W}})+log(\Gamma(m_{.k}'+{\bf m_{j_{0}k}})+log \gamma]$\\ \\
+Then the Object function becomes:\\
+$L'_{decom-res}= \sum_{k\in k_{set}}[log(\Pi_{w=1}^{W}\Gamma(\lambda_{0}+n_{..k}^{'w}+{\bf n_{j_{0}.k}^{w}}))]$\\ 
+Which is a perfect Binary Integer Programming problem:\\ \\
+{\bf \emph{Variable:}}\\
+Binary:$\{q_{kwn}\},k\in k_{set};w=1,2,...,W;n=1,2,...,n_{j_{0}..}^{w}$\\ \\
+{\bf \emph{Statistics:}}\\
+$\sum_{n=1}^{n_{j_{0}..}^{w}}q_{kwn}= n_{j_{0}.k}^{w}$, for each w,k\\
+Coeff: $l_{kwn}=log(\lambda_{0}+n^{'w}_{..k}+n-1)$\\ \\
+{\bf \emph{Linear Constraints:}}\\
+$q_{kwn}\in\{0,1\}$\\
+$q_{kwn}\geq q_{kwn'},$for n$\leq$n'\\
+$\sum_{k\in k_{set}}\sum_{n=1}^{n_{j_{0}..}^{w}}q_{kwn}=n_{j_{0}..}^{w}$, for each w\\\\
+{\bf \emph{Linear Object Funciton!!!:}}\\
+$L_{decom-res}(j_{0},n_{j_{0}.k}^{w})=\sum_{k\in k_{set}}\sum_{w=1}^{W}\sum_{n=1}^{n_{j_{0}..}^{w}}q_{kwn}l_{kwn}$
+
+\section{2)Modern Heuristic:}
+Amazingly, our previous randomized search greedily approximate the needed statistics for Linear Programming:\\ \\
+1) $m_{j_{0}.}\ \ \ \ \ \ \ $   sample new tables(upper bounder for $m_{j_{0}.}$)+merge-table(Local change $m_{j_{0}.}$ by 1)\\ 
+2) $\vec n_{j_{0}t}\ \ \ \ \ \ \ \ $    local-table(Local change $\vec n_{j_{0}t}$ by 1)\\
+3) $k_{set}\ \ \ \ \ \ \ \ $     search-dish(Local change $k_{set}$ by 1 element)\\ \\
+\end{spacing}
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

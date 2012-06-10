@@ -1,0 +1,526 @@
+This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2010.3.21)  10 APR 2010 18:16
+entering extended mode
+ %&-line parsing enabled.
+**4.5.tex
+(./4.5.tex
+LaTeX2e <2005/12/01>
+Babel <v3.8h> and hyphenation patterns for english, usenglishmax, dumylang, noh
+yphenation, loaded.
+(/usr/share/texmf-texlive/tex/latex/base/article.cls
+Document Class: article 2005/09/16 v1.4f Standard LaTeX document class
+(/usr/share/texmf-texlive/tex/latex/base/size10.clo
+File: size10.clo 2005/09/16 v1.4f Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2000/07/18 v2.13 AMS math features
+\@mathmargin=\skip43
+
+For additional information on amsmath, use the `?' option.
+(/usr/share/texmf-texlive/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01
+
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks14
+\ex@=\dimen103
+))
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d
+\pmbraise@=\dimen104
+)
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsopn.sty
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count87
+LaTeX Info: Redefining \frac on input line 211.
+\uproot@=\count88
+\leftroot@=\count89
+LaTeX Info: Redefining \overline on input line 307.
+\classnum@=\count90
+\DOTSCASE@=\count91
+LaTeX Info: Redefining \ldots on input line 379.
+LaTeX Info: Redefining \dots on input line 382.
+LaTeX Info: Redefining \cdots on input line 467.
+\Mathstrutbox@=\box26
+\strutbox@=\box27
+\big@size=\dimen105
+LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
+\macc@depth=\count92
+\c@MaxMatrixCols=\count93
+\dotsspace@=\muskip10
+\c@parentequation=\count94
+\dspbrk@lvl=\count95
+\tag@help=\toks15
+\row@=\count96
+\column@=\count97
+\maxfields@=\count98
+\andhelp@=\toks16
+\eqnshift@=\dimen106
+\alignsep@=\dimen107
+\tagshift@=\dimen108
+\tagwidth@=\dimen109
+\totwidth@=\dimen110
+\lineht@=\dimen111
+\@envbody=\toks17
+\multlinegap=\skip44
+\multlinetaggap=\skip45
+\mathdisplay@stack=\toks18
+LaTeX Info: Redefining \[ on input line 2666.
+LaTeX Info: Redefining \] on input line 2667.
+)
+(/usr/share/texmf-texlive/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2001/10/25 v2.2f
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 132.
+)
+(/usr/share/texmf-texlive/tex/latex/amscls/amsthm.sty
+Package: amsthm 2004/08/06 v2.20
+\thm@style=\toks19
+\thm@bodyfont=\toks20
+\thm@headfont=\toks21
+\thm@notefont=\toks22
+\thm@headpunct=\toks23
+\thm@preskip=\skip46
+\thm@postskip=\skip47
+\thm@headsep=\skip48
+\dth@everypar=\toks24
+)
+(/usr/share/texmf-texlive/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2002/01/22 v2.2d
+)
+(/usr/share/texmf-texlive/tex/latex/setspace/setspace.sty
+Package: setspace 2000/12/01 6.7 Contributed and Supported LaTeX2e package
+
+Package: `setspace' 6.7 <2000/12/01>
+) (/usr/share/texmf-texlive/tex/latex/Tabbing/Tabbing.sty
+Package: Tabbing 1997/12/18 v1.0 Tabbing environment (JPFD)
+)
+(/usr/share/texmf-texlive/tex/latex/fancyhdr/fancyhdr.sty
+\fancy@headwidth=\skip49
+\f@ncyO@elh=\skip50
+\f@ncyO@erh=\skip51
+\f@ncyO@olh=\skip52
+\f@ncyO@orh=\skip53
+\f@ncyO@elf=\skip54
+\f@ncyO@erf=\skip55
+\f@ncyO@olf=\skip56
+\f@ncyO@orf=\skip57
+)
+(/usr/share/texmf/tex/latex/dblatex/misc/lastpage.sty
+Package: lastpage 1994/06/25 v0.1b LaTeX2e package for refs to last page number
+ (JPG)
+)
+(/usr/share/texmf-texlive/tex/latex/fancyhdr/extramarks.sty
+\@temptokenb=\toks25
+)
+(/usr/share/texmf-texlive/tex/latex/ltxmisc/chngpage.sty
+Package: chngpage 2003/08/10 v1.2 change page layout
+\c@cp@cnt=\count99
+\c@cp@tempcnt=\count100
+)
+(/usr/share/texmf-texlive/tex/latex/soul/soul.sty
+Package: soul 2003/11/17 v2.4 letterspacing/underlining (mf)
+\SOUL@word=\toks26
+\SOUL@lasttoken=\toks27
+\SOUL@cmds=\toks28
+\SOUL@buffer=\toks29
+\SOUL@token=\toks30
+\SOUL@spaceskip=\skip58
+\SOUL@ttwidth=\dimen112
+\SOUL@uldp=\dimen113
+\SOUL@ulht=\dimen114
+)
+(/usr/share/texmf-texlive/tex/latex/graphics/color.sty
+Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
+
+(/etc/texmf/tex/latex/config/color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package color Info: Driver file: pdftex.def on input line 130.
+
+(/usr/share/texmf-texlive/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2007/01/08 v0.04d Graphics/color for pdfTeX
+\Gread@gobject=\count101
+))
+(/usr/share/texmf-texlive/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf-texlive/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks31
+)
+(/usr/share/texmf-texlive/tex/latex/graphics/graphics.sty
+Package: graphics 2006/02/20 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf-texlive/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/etc/texmf/tex/latex/config/graphics.cfg
+File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
+)
+Package graphics Info: Driver file: pdftex.def on input line 90.
+)
+\Gin@req@height=\dimen115
+\Gin@req@width=\dimen116
+)
+(/usr/share/texmf-texlive/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count102
+\float@exts=\toks32
+\float@box=\box28
+\@float@everytoks=\toks33
+\@floatcapt=\box29
+)
+(/usr/share/texmf-texlive/tex/latex/wrapfig/wrapfig.sty
+\wrapoverhang=\dimen117
+\WF@size=\dimen118
+\c@WF@wrappedlines=\count103
+\WF@box=\box30
+\WF@everypar=\toks34
+Package: wrapfig 2003/01/31  v 3.6
+)
+(/usr/share/texmf-texlive/tex/latex/multirow/multirow.sty
+\bigstrutjot=\dimen119
+)
+\labelLength=\skip59
+\c@homeworkProblemCounter=\count104
+\homeworkSectionLabelLength=\skip60
+ (./4.5.aux)
+\openout1 = `4.5.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 120.
+LaTeX Font Info:    ... okay on input line 120.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 120.
+LaTeX Font Info:    ... okay on input line 120.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 120.
+LaTeX Font Info:    ... okay on input line 120.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 120.
+LaTeX Font Info:    ... okay on input line 120.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 120.
+LaTeX Font Info:    ... okay on input line 120.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 120.
+LaTeX Font Info:    ... okay on input line 120.
+
+(/usr/share/texmf/tex/context/base/supp-pdf.tex
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count105
+\scratchdimen=\dimen120
+\scratchbox=\box31
+\nofMPsegments=\count106
+\nofMParguments=\count107
+\everyMPshowfont=\toks35
+\MPscratchCnt=\count108
+\MPscratchDim=\dimen121
+\MPnumerator=\count109
+\everyMPtoPDFconversion=\toks36
+)
+LaTeX Font Info:    Try loading font information for U+msa on input line 122.
+ (/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2002/01/19 v2.2g AMS font definitions
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 122.
+
+(/usr/share/texmf-texlive/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2002/01/19 v2.2g AMS font definitions
+)
+<dp.jpg, id=1, 614.295pt x 433.62pt>
+File: dp.jpg Graphic file (type jpg)
+ <use dp.jpg>
+Underfull \hbox (badness 10000) in paragraph at lines 138--152
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 138--152
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 138--152
+
+ []
+
+[1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./dp.jpg>]
+<0_me_1.jpg, id=17, 361.35pt x 361.35pt>
+File: 0_me_1.jpg Graphic file (type jpg)
+ <use 0_me_1.jpg>
+<0_me_r.jpg, id=18, 650.43pt x 650.43pt> [2 <./0_me_1.jpg>]
+File: 0_me_r.jpg Graphic file (type jpg)
+ <use 0_me_r.jpg>
+<0_cee_20.pdf, id=23, 614.295pt x 794.97pt>
+File: 0_cee_20.pdf Graphic file (type pdf)
+ <use 0_cee_20.pdf>
+Underfull \hbox (badness 10000) in paragraph at lines 201--207
+
+ []
+
+[3 <./0_me_r.jpg> <./0_cee_20.pdf>] <1_me_1.jpg, id=32, 361.35pt x 361.35pt>
+File: 1_me_1.jpg Graphic file (type jpg)
+
+<use 1_me_1.jpg> <1_me_r.jpg, id=33, 650.43pt x 650.43pt> [4 <./1_me_1.jpg>]
+File: 1_me_r.jpg Graphic file (type jpg)
+
+<use 1_me_r.jpg> <1_ee_20.jpg, id=37, 578.16pt x 578.16pt>
+File: 1_ee_20.jpg Graphic file (type jpg)
+ <use 1_ee_20.jpg>
+<1_cee_20.jpg, id=38, 542.025pt x 542.025pt> [5 <./1_me_r.jpg> <./1_ee_20.jpg>]
+File: 1_cee_20.jpg Graphic file (type jpg)
+<use 1_cee_20.jpg>
+Overfull \hbox (2.2222pt too wide) in paragraph at lines 252--286
+[][] [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 289--296
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 289--296
+
+ []
+
+[6 <./1_cee_20.jpg>] <sample.jpg, id=47, 361.35pt x 296.307pt>
+File: sample.jpg Graphic file (type jpg)
+
+<use sample.jpg>
+Underfull \hbox (badness 10000) in paragraph at lines 302--316
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 302--316
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 302--316
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 302--316
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 302--316
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 302--316
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 302--316
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 302--316
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 302--316
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 302--316
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 302--316
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 302--316
+
+ []
+
+[7 <./sample.jpg>]
+Underfull \hbox (badness 10000) in paragraph at lines 317--320
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 317--320
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 321--335
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 336--342
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 336--342
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 336--342
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 336--342
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 336--342
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 336--342
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 343--346
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 343--346
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 343--346
+
+ []
+
+[8]
+Underfull \hbox (badness 10000) in paragraph at lines 347--350
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 347--350
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 347--350
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 351--352
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 353--355
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 353--355
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 353--355
+
+ []
+
+
+Overfull \hbox (47.73373pt too wide) in paragraph at lines 356--379
+\OT1/cmr/m/n/12 (Allocation:)$[]$ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 356--379
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 356--379
+
+ []
+
+
+Overfull \hbox (14.7868pt too wide) in paragraph at lines 356--379
+\OT1/cmr/m/n/12 +(k-term)$[][][[]\OML/cmm/m/it/12 log^^Y \OT1/cmr/m/n/12 + []\O
+ML/cmm/m/it/12 log[] \OT1/cmr/m/n/12 + []\OML/cmm/m/it/12 logdet\OT1/cmr/m/n/12
+ (\OML/cmm/m/it/12 B[]\OT1/cmr/m/n/12 ) \OMS/cmsy/m/n/12 ^^@ []\OML/cmm/m/it/12
+ logdet\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 B[]\OT1/cmr/m/n/12 ) \OMS/cmsy/m/n/12 
+^^@ \OML/cmm/m/it/12 log[] \OMS/cmsy/m/n/12 ^^@ []$ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 356--379
+
+ []
+
+<hdp.jpg, id=57, 195.129pt x 260.172pt>
+File: hdp.jpg Graphic file (type jpg)
+ <use hdp.jpg> [9]
+Underfull \hbox (badness 10000) in paragraph at lines 389--390
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 394--400
+
+ []
+
+[10 <./hdp.jpg>] AED: lastpage setting LastPage [11] (./4.5.aux) ) 
+Here is how much of TeX's memory you used:
+ 2508 strings out of 95086
+ 30404 string characters out of 1183255
+ 85589 words of memory out of 1500000
+ 5630 multiletter control sequences out of 10000+50000
+ 12132 words of font info for 47 fonts, out of 1200000 for 2000
+ 28 hyphenation exceptions out of 8191
+ 27i,12n,43p,220b,426s stack positions out of 5000i,500n,6000p,200000b,5000s
+</usr/share/t
+exmf-texlive/fonts/type1/bluesky/cm/cmbx10.pfb></usr/share/texmf-texlive/fonts/
+type1/bluesky/cm/cmbx12.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cm
+ex10.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmmi10.pfb></usr/shar
+e/texmf-texlive/fonts/type1/bluesky/cm/cmmi12.pfb></usr/share/texmf-texlive/fon
+ts/type1/bluesky/cm/cmmi6.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/
+cmmi8.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmr10.pfb></usr/shar
+e/texmf-texlive/fonts/type1/bluesky/cm/cmr12.pfb></usr/share/texmf-texlive/font
+s/type1/bluesky/cm/cmr6.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cm
+r7.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmr8.pfb></usr/share/te
+xmf-texlive/fonts/type1/bluesky/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/t
+ype1/bluesky/cm/cmsy6.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmsy
+8.pfb></usr/share/texmf-texlive/fonts/type1/public/cmex/fmex8.pfb>
+Output written on 4.5.pdf (11 pages, 1204420 bytes).
+PDF statistics:
+ 117 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 131072)
+ 51 words of extra memory for PDF output out of 10000 (max. 10000000)
+

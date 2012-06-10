@@ -1,0 +1,331 @@
+\documentclass{article}
+% Change "article" to "report" to get rid of page number on title page
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{Tabbing}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{graphicx,float,wrapfig}
+\usepackage{multirow}
+\usepackage{enumerate}
+\usepackage{alltt,comment}
+\usepackage{fixltx2e}
+% In case you need to adjust margins:
+\topmargin=-0.45in      %
+\evensidemargin=0in     %
+\oddsidemargin=0in      %
+\textwidth=6.5in        %
+\textheight=9.0in       %
+\headsep=0.25in         %
+
+% Homework Specific Information
+\newcommand{\hmwkTitle}{Outline: ME algorithm}
+\newcommand{\hmwkClass}{}
+\newcommand{\hmwkAuthorName}{Donglai\ Wei}
+
+
+% Setup the header and footer
+\pagestyle{fancy}                                                       %
+\lhead{\hmwkAuthorName}                                                 %
+\rhead{\firstxmark}                                                     %
+\lfoot{\lastxmark}                                                      %
+\cfoot{}                                                                %
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}                          %
+\renewcommand\headrulewidth{0.4pt}                                      %
+\renewcommand\footrulewidth{0.4pt}                                      %
+
+% This is used to trace down (pin point) problems
+% in latexing a document:
+%\tracingall
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\begin{enumerate}
+
+% Some tools
+\newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+                                    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+                                   \nobreak\extramarks{#1}{}\nobreak}%
+
+\newlength{\labelLength}
+\newcommand{\labelAnswer}[2]
+  {\settowidth{\labelLength}{#1}%
+   \addtolength{\labelLength}{0.25in}%
+   \changetext{}{-\labelLength}{}{}{}%
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#2\end{minipage}}%
+   \marginpar{\fbox{#1}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \changetext{}{+\labelLength}{}{}{}}%
+
+\setcounter{secnumdepth}{0}
+\newcommand{\homeworkProblemName}{}%
+\newcounter{homeworkProblemCounter}%
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]%
+  {\stepcounter{homeworkProblemCounter}%
+   \renewcommand{\homeworkProblemName}{#1}%
+   \section{\homeworkProblemName}%
+   \enterProblemHeader{\homeworkProblemName}}%
+  {\exitProblemHeader{\homeworkProblemName}}%
+
+\newcommand{\problemAnswer}[1]
+  {\noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}}%
+
+\newcommand{\problemLAnswer}[1]
+  {\labelAnswer{\homeworkProblemName}{#1}}
+
+\newcommand{\homeworkSectionName}{}%
+\newlength{\homeworkSectionLabelLength}{}%
+\newenvironment{homeworkSection}[1]%
+  {% We put this space here to make sure we're not connected to the above.
+   % Otherwise the changetext can do funny things to the other margin
+
+   \renewcommand{\homeworkSectionName}{#1}%
+   \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+   \addtolength{\homeworkSectionLabelLength}{0.25in}%
+   \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+   \subsection{\homeworkSectionName}%
+   \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+  {\enterProblemHeader{\homeworkProblemName}%
+
+   % We put the blank space above in order to make sure this margin
+   % change doesn't happen too soon (else \sectionAnswer's can
+   % get ugly about their \marginpar placement.
+   \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+
+\newcommand{\sectionAnswer}[1]
+  {% We put this space here to make sure we're disconnected from the previous
+   % passage
+
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}%
+   \enterProblemHeader{\homeworkProblemName}\exitProblemHeader{\homeworkProblemName}%
+   \marginpar{\fbox{\homeworkSectionName}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   }%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make title
+\title{\vspace{0.3in}\textmd{\textbf{\hmwkTitle}}}
+\date{2010.9.4}
+\author{\textbf{\hmwkAuthorName}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\begin{spacing}{1.1}
+\maketitle
+\section{1) Formula }
+{\bf Hyper-parameter $\Phi$:}\\
+$\alpha,\gamma$: HDP concentration parameter\\
+$\vec \lambda$: Prior for Dirichlet Distribution(W=dim($\vec \lambda$):number of different words;uniform prior:$\lambda_{1},...,\lambda_{W}=\lambda_{0}$)\\ \\ \\
+{\bf Hidden Variable:}\\
+(M-step)z: Discrete assignment($t_{ji},k_{jt}$ correspond to customer,table assignment in Chinese Restaurant Franchise)\\
+(E-step)$\theta$: Multinomial parameter\\ \\ \\
+{\bf Observation:}\\
+x:$\in$(1,...W)\\ \\ \\
+{\bf Free Parameter:}\\
+$n_{j.k}^{w}$number of occurence of word w in dish k in restaurant j\\ \\
+{\bf Counting Statistics:}\\
+J Restaurants,K dishes\\
+$n_{jtk}=\sum_{w=1}^{W} \delta(k_{jt}-k)n_{j.k}^{w}$number of customers in table t Restaurant j serving dish k \emph{{\small($\delta:$Dirac delta function)}}\\
+$n_{j.k}=\sum_{w=1}^{W} n_{j.k}^{w}$number of customers serving dish k \\
+$n_{..k}^{w}=\sum_{j=1}^{J} n_{j.k}^{w}$number of occurence of word w in dish k\\
+$n_{j..}=\sum_{k=1}^{K}n_{j.k}$number of customers in in Restaurant j \\
+$m_{jk}=1-\delta(\sum_{w=1}^{W} n_{j.k}^{w})$number of tables in Restaurant j serving dish k\\
+$m_{.k}=\sum_{j=1}^{J} m_{jk}$number of tables in dish k \\ 
+$m_{..}=\sum_{k=1}^{K} m_{.k}$number of tables in total \\ \\ \\
+(Marginalize $\theta$ and Search over $n_{j.k}^{w},\forall j,k,w$)\\
+{\bf Goal}:Maximize log Probability: L=$log(p(\vec x,\vec z|\Phi)$
+\subsection{a) Original Formula}
+\begin{eqnarray*}
+L&=&log(p(\vec x,\vec z|\Phi))=log\int_\theta \! p(\vec x,\vec z,\theta|\Phi)\, d\theta=log\int_\theta \! p(\vec x,\theta|\vec z,\Phi)p(\vec z|\Phi) \, d\theta\\
+&=&log(p(\vec z|\Phi))+log\int_\theta \! p(\vec x,\theta|\vec z,\Phi) \, d\theta\\
+&=&\emph{{\small(HDP stochastic process term)}}log\{\frac{\Gamma(\gamma)}{\Gamma(m_{..}+\gamma)}\Pi_{k=1}^{K} [\Gamma(m_{.k})] \gamma^{K}\}+\sum_{j=1}^{J}log\{[\frac{\Gamma(\alpha)}{\Gamma(n_{j..}+\alpha)}\Pi_{k=1}^{K}(\Gamma(n_{j.k}))]\alpha^{m_{..}}\}\\
+&+&\emph{{\small(Likelihood term)}}\sum_{k=1}^{K}\{log(\frac{\Gamma(W\lambda_{0})}{\Gamma(n_{..k}+W\lambda_{0})})+\sum_{w=1}^{W}log(\frac{\Gamma(\lambda_{0}+n_{..k}^{w})}{\Gamma(\lambda_{0})})\}
+\end{eqnarray*}
+
+
+\subsection{b) z-m View(Decompose Dish)}
+The objection function can be roughly divided for each dish k.\\ 
+In terms of J-W-K coordinate, we are trying to find the best config for each J-W plane to maximize L.\\
+The sub objection function for each k(J-W plane) is composed of the counts of customers:\\ 
+1)in J direction for every w\\
+2)in W direction for every j\\
+3)on the whole plane.
+\begin{eqnarray*}
+L&=&log p(\vec x,\vec z|\Phi)\\
+&=&\emph{{\small(z-term)}}\sum_{k=1}^{K} [log(\frac{\Pi_{w=1}^{W}\Gamma(\lambda_{0}+n_{..k}^{w})\ \Pi_{j=1}^{J}\alpha\Gamma(n_{jkt_{k}})}{\Gamma(n_{..k}+W\lambda_{0})})+log(\gamma \frac{\Gamma(W\lambda_{0})}{\Gamma(\lambda_{0})^{W}})]\\
+&+&\emph{{\small(m-term)}}log(\frac{\Pi_{k=1}^{K}\Gamma(m_{.k})}{\Gamma(m_{..}+\gamma)})\\
+&+&\emph{{\small(constant)}}\sum_{j=1}^{J} [log \frac{\Gamma(\alpha)}{\Gamma(n_{j..}+\alpha)}]+log(\Gamma(\gamma))\\ 
+\end{eqnarray*}
+In order to improve the config of dish k, we implement {\bf Decompose Dish} move:\\
+1) Delete dish k and then reconfig the involved restaurants and words.\\
+2) If new dishes are proposed to increase L, try to merge them to old dishes.\\
+\subsection{c)t-w-k View(Decompose Restaurant/Word)}
+In order to imporve the config of involved restaurants and words, we need to rewrite the formula as follows.\\
+\begin{eqnarray*}
+L&=&log p(x,z|\lambda)\\
+&=&\emph{{\small(t-term)}}\sum_{j=1}^{J} \{\sum_{k=1}^{K}[log(\Gamma(n_{j.k}))+log \alpha]\}\\
+&+&\emph{{\small(w-term)}}\sum_{w=1}^{W} \{\sum_{k=1}^{K}[log(\Gamma(\lambda_{0}+n_{..k}^{w}))-log(\Gamma(\lambda_{0}))]\}\\
+&+&\emph{{\small(k-term)}}log \frac{1}{\Gamma(m_{..}+\gamma)}+\sum_{k=1}^{K} [log(\frac{\Gamma(W\lambda_{0})}{\Gamma(n_{..k}+W\lambda_{0})})+log(\Gamma(m_{.k})+log \gamma]\\
+&+&\emph{{\small(constant)}}\sum_{j=1}^{J} [log \frac{\Gamma(\alpha)}{\Gamma(n_{j..}+\alpha)}]+log(\Gamma(\gamma))\\ 
+\end{eqnarray*}
+\emph{{\small(define $log(\Gamma(n_{j.k}))=0$,if $n_{j.k}=0$)}}\\
+Since we are going to initialize with "Every restaurant has only one table and its own dish" which already gives the best t-term, we should
+anneal t-term during the heuristic search.\\ \\
+Thus the object function during annealing is :\\
+L'=Temperature*t-term+(k-term+w-term)\\
+which is the same as previous $t_{ji}-k_{jt}$ view.\\ 
+{\bf Symmetrically,} if we initialize with "Every word is a dish" which gives the best w-term, we should anneal w-term instead.
+
+
+\section{2) ME algorithm: }
+J Restaurants,K dishes
+\subsection{i) Backbone}
+\begin{alltt}
+  \(\%a)Initialization:\)
+      Every restaurant has only one table and its own dish
+  \(\%b)Annealing:(n:number of iterations; p:annealing power)\)
+      For iter=1:n
+          Temperature=\((\frac{iter}{n})^p\)
+          Decompose Dish(Temperature)
+      End
+
+  \(\%c)Run for Convergence:\)
+      While L doesn't increase any more:          
+          For j=randperm(J):
+              Decompose Restaurants(j,1,0)
+          End
+          For w=randperm(W):
+              Decompose Word(w,1,0)
+          End
+          Decompose Dish(1)
+      End
+\end{alltt}
+\subsection{ii) Decompose Dish(Negative Temperature:Temperature)}
+\begin{alltt}
+For k=Randperm(K)
+
+   \(\%a)Reconfig without Dish k\)
+      For j=Restaurants which have tables serving dish k
+          Decompose Restaurant(j,Temperature,k);
+      End
+      For w=words which appear in dish k
+          Decompose Word(w,Temperature,k);
+      End
+
+   \(\%b)Merge new proposed dishes\)
+      For k=new proposed dishes
+          Merge Dish(Temperature,k);
+      End      
+  
+   \(\%c)Decision\)
+      If(\(\Delta k-term+\Delta w-term+{\bf Temperature}*\Delta t-term<\)0):
+          Accept new config
+      End
+
+End
+\end{alltt}
+\subsection{iii) Decompose Restaurants(Restaurant index:$j$,Negative Temperature:$T$,The Decomposed Dish: $k_{0}$)}
+\begin{alltt}
+\(\%a)Rough Reconfig Restaurant j\)
+Make Restaurant j into one table \(t\textsubscript{0}\) where customers following uniform distribution
+\(\%(P(t\textsubscript{ji}=t\textsubscript{0})=\frac{1}{W})\)      
+Possible Dish=\(\{Nonempty \ dishes\}\setminus k\textsubscript{0}\)      
+While Possible Dish is not empty: 
+      
+      For each dish \(k\in\)Possible Dish:          
+          For each customer i in \(t\textsubscript{0}\):
+              sample \(t\textsubscript{ji}\in\{t\textsubscript{0},t\textsubscript{k}\}\sim\{\frac{1}{W},\frac{n\textsubscript{..k}\textsuperscript{w}+\phi}{n\textsubscript{..k}+W\phi}\}\)                
+          End
+      Propose to form table \(t\textsubscript{k}\) with customers whose \(t\textsubscript{ji}=t\textsubscript{k}\)
+      Calculate the change \(d\textsubscript{k}\) for k-term and w-term:
+      End
+      \(\%\)Sample a proposal \(t\textsubscript{k*}\) according to the weight and make the new table:
+      Sample a proposal \(\{t\textsubscript{k\textsubscript{1}},...,t\textsubscript{k\textsubscript{K}}\}\sim e\textsuperscript{r\textsubscript{proposal}\{d\textsubscript{k\textsubscript{1}},...,d\textsubscript{k\textsubscript{K}}\}}\)
+      \(\%r\textsubscript{proposal}>0\), the more decrease of \(d\textsubscript{k}\), the less propable to form table \(t\textsubscript{k}\)
+      Possible Dish=Possible Dish\(\setminus k\textsubscript{*}\)
+      \(t\textsubscript{0}=t\textsubscript{0} \setminus t\textsubscript{k\textsubscript{*}}\)
+End
+If there are still customers left in \(t\textsubscript{0}\):
+   make it a new table with a new dish K+1
+End
+
+\(\%\)b)Further Refinement of Restaurant j(Local-Search and Merge Move for tables in Restaurant j)
+
+LM-Restaurant(j,T)
+
+\(\%\)c)Decision
+
+Calculate the change of L between present Restaurant j config and its previous config: 
+\(\Delta L'=\Delta k-term+{\bf T}\Delta t-term+\Delta w-term\)
+
+If(\(\Delta L'<\)0):
+    Accept the new configuration
+Else:
+    Restore Previous Config
+End    
+\end{alltt}
+
+
+
+\subsection{iv) LM-Restaurant(Restaurant index:$j$,Negative Temperature:$T$)}
+\begin{alltt}
+While L doesn't increase any more:
+      
+     \(\%\)a)Local Search Table:
+        For t\textsubscript{1}=Randperm(m\textsubscript{j.}):
+             For t\textsubscript{2}=Randperm(m\textsubscript{j.}\(\setminus\) t\textsubscript{1}):
+                While local move can be made:
+                      Greedily move one customer at a time from \(t\textsubscript{1}\) to \(t\textsubscript{2}\) if the move increases {\bf L'(T)} 
+                End
+             End
+        End
+     
+      \(\%\)b)Local Search Dish:
+        For \(t\textsubscript{1}\)=Randperm(\(m\textsubscript{j.}\)):
+            Assign \(t\textsubscript{1}\) to the dish which increase L most(allow it to have new dish)
+        End
+              
+      \(\%\)c)Merge Table:
+        For \(t\textsubscript{1}\)=Randperm(\(m\textsubscript{j.}\)):
+            Merge table \(t\textsubscript{1}\) to the table in j with the best dish k, which increase \({\bf L'(T)}\) most
+            \(\%\)if cannot increase L'(T),then leave it alone
+        End
+
+End
+\end{alltt}
+\subsection{v) Decompose Word(Word index:$j$,Negative Temperature:$T$,The Decomposed Dish: $k_{0}$)}
+The only difference from "Decompose Restaurant" is:\\ \\
+In DR, sample according to the w-term to approximate t-term:$t_{ji}\in\{t_{0},t_{k}\}\sim\{\frac{1}{W},\frac{n_{..k}^{w}+\phi}{n_{..k}+W\phi}\}$\\
+In DW, sample according to the t-term to approximate w-term:$t_{ji}\in\{t_{0},t_{k}\}\sim\{log(\alpha),log(n_{jt.})\}$
+
+\subsection{vi) LM-Word(Dish index:k)}
+Similar to LM-Restaurant:\\\\
+In DR, tables are the projection from dishes to the Restaurant j\\
+In DW, tables are the projection from dishes to the Word w\\
+\subsection{vii) Merge-Dish(Dish index:$k$,Negative Temperature:$T$)}
+\begin{alltt}
+Dish List=\(\{Nonempty \ dishes\}\setminus k\)
+ 
+While Dish List is not empty:
+    Randomly pick a dish k\(\in\) Dish List
+    Dish List=Dish List\(\setminus\)k
+    Merge dish k to the dish\(\in\) Dish List which increase \({\bf L'(T)}\) mostly
+    \(\%\)if cannot increase L'(T), then leave it alone
+ End
+ 
+\end{alltt}
+
+\end{spacing}
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

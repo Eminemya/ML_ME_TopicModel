@@ -1,0 +1,20 @@
+1) Script:
+top
+i) (baseline)bar_teh.m: Teh's code to generate synthetic bar data
+ii) bar_g.m: +unequalness
+iii) bar_n.m: +noisiness
+iv) bar_b.m: +burstiness
+
+
+2) Bar generation:
+
+i) genbars.m: Teh's code to generate synthetic bar data
+ii) genbars_g.m: +unequalness
+iii) genbars_n.m: +noisiness
+iv) genbars_b.m: +burstiness
+
+3) Utility:
+
+i) binit.m: uniformly bin nips vocabulary (W~5,000)
+ii) comp_nip.m: function to plot dw.pdf(document word distribution) and 
+tw.pdf(total word distribution) given saved data (generated above) from data/

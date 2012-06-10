@@ -1,0 +1,243 @@
+\documentclass{article}
+% Change "article" to "report" to get rid of page number on title page
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{Tabbing}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{graphicx,float,wrapfig}
+\usepackage{multirow}
+\usepackage{enumerate}
+% In case you need to adjust margins:
+\topmargin=-0.45in      %
+\evensidemargin=0in     %
+\oddsidemargin=0in      %
+\textwidth=6.5in        %
+\textheight=9.0in       %
+\headsep=0.25in         %
+
+% Homework Specific Information
+\newcommand{\hmwkTitle}{Pseudo-code for Split and Merge}
+\newcommand{\hmwkClass}{}
+\newcommand{\hmwkAuthorName}{Donglai\ Wei}
+
+
+% Setup the header and footer
+\pagestyle{fancy}                                                       %
+\lhead{\hmwkAuthorName}                                                 %
+\rhead{\firstxmark}                                                     %
+\lfoot{\lastxmark}                                                      %
+\cfoot{}                                                                %
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}                          %
+\renewcommand\headrulewidth{0.4pt}                                      %
+\renewcommand\footrulewidth{0.4pt}                                      %
+
+% This is used to trace down (pin point) problems
+% in latexing a document:
+%\tracingall
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\begin{enumerate}
+
+% Some tools
+\newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+                                    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+                                   \nobreak\extramarks{#1}{}\nobreak}%
+
+\newlength{\labelLength}
+\newcommand{\labelAnswer}[2]
+  {\settowidth{\labelLength}{#1}%
+   \addtolength{\labelLength}{0.25in}%
+   \changetext{}{-\labelLength}{}{}{}%
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#2\end{minipage}}%
+   \marginpar{\fbox{#1}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \changetext{}{+\labelLength}{}{}{}}%
+
+\setcounter{secnumdepth}{0}
+\newcommand{\homeworkProblemName}{}%
+\newcounter{homeworkProblemCounter}%
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]%
+  {\stepcounter{homeworkProblemCounter}%
+   \renewcommand{\homeworkProblemName}{#1}%
+   \section{\homeworkProblemName}%
+   \enterProblemHeader{\homeworkProblemName}}%
+  {\exitProblemHeader{\homeworkProblemName}}%
+
+\newcommand{\problemAnswer}[1]
+  {\noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}}%
+
+\newcommand{\problemLAnswer}[1]
+  {\labelAnswer{\homeworkProblemName}{#1}}
+
+\newcommand{\homeworkSectionName}{}%
+\newlength{\homeworkSectionLabelLength}{}%
+\newenvironment{homeworkSection}[1]%
+  {% We put this space here to make sure we're not connected to the above.
+   % Otherwise the changetext can do funny things to the other margin
+
+   \renewcommand{\homeworkSectionName}{#1}%
+   \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+   \addtolength{\homeworkSectionLabelLength}{0.25in}%
+   \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+   \subsection{\homeworkSectionName}%
+   \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+  {\enterProblemHeader{\homeworkProblemName}%
+
+   % We put the blank space above in order to make sure this margin
+   % change doesn't happen too soon (otherwise \sectionAnswer's can
+   % get ugly about their \marginpar placement.
+   \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+
+\newcommand{\sectionAnswer}[1]
+  {% We put this space here to make sure we're disconnected from the previous
+   % passage
+
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}%
+   \enterProblemHeader{\homeworkProblemName}\exitProblemHeader{\homeworkProblemName}%
+   \marginpar{\fbox{\homeworkSectionName}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   }%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make title
+\title{\vspace{0.3in}\textmd{\textbf{\hmwkTitle}}}
+\date{2010.4.21}
+\author{\textbf{\hmwkAuthorName}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\begin{spacing}{1.1}
+\maketitle
+
+
+\section*{Goal} find higher log-probability P=log(p(x$|\lambda,\vec z$))
+\section*{Code}
+\underline{While no more changes of table assignment and dish assignment can increase P:}\\
+\begin{enumerate}[(I)]
+
+\item
+ \[
+a=rand([0,1]) \Rightarrow
+  \left\{ \begin{array}{ll}
+ Go \ to\  Step \  II: \ Split \ tables & \ \mbox{ ${a \in [0,\frac{1}{4}]}$}\\
+ Go \ to\  Step \  III: \ Merge \ tables  & \ \mbox{ ${a \in [\frac{1}{4},\frac{2}{4}]}$}\\
+Go \ to\  Step \  IV: \ Split \ dishes  & \ \mbox{ ${a \in [\frac{2}{4},\frac{3}{4}]}$}\\
+Go \ to\  Step \  V: \ Merge \ dishes  & \ \mbox{ ${a \in [\frac{3}{4},1]}$}\\
+\end{array} \right.  \]
+\item Split tables:
+\begin{enumerate}[(1)] 
+\item Randomly pick a Restaurant R, which has m tables.
+\item Randomly pick a table t in R, which has n customers.
+\item if(n$\neq$1) Do 2-means++ (current: K dishes,table assignment:$z_{t0}$,dish assignment:$z_{k0}$)
+\begin{enumerate}[(a)]
+\item Initialization:\\ \\
+Randomly pick a customer C1 in from table t to form a new table (m+1) with a new dish(K+1) $\Rightarrow (z_{t1},z_{k1}$) \\ \\
+For ww=randperm(customers from table t except C1) \\ 
+$z_{t1}^{'}$: change $z_{t1}$ by assigning customer ww to the new table (m+1) \\
+weight(ww)=max$\{log(p(x|\lambda,z_{t1}))-log(p(x|\lambda,z_{t1}^{'})),0\}$   (more decrease,more weight) \\ 
+End \\ \\
+Randomly sample another customer C2 from table t according to weight,form a new table (m+2) with a new dish(K+2)$\Rightarrow(z_{t2},z_{k2})$\\ \\
+
+For ww=randperm(customers from table t except C1,C2) \\ 
+$z_{t2}^{'}$: change $z_{t2}$ by assigning customer ww to the table (m+1), which increase the P by tmp1\\
+$z_{t2}^{''}$: change $z_{t2}$ by assigning customer ww to the table (m+2), which increase the P by tmp2 \\
+assign customer ww to table (m+argmax\{tmp1,tmp2\})\\
+End \\ \\
+\item Iteration(2-means):\\ \\
+While no more changes of table assignment and dish assignment can increase P:\\
+b=rand([0,1]) \\
+Switch (ceil(b*4)):\\
+case 1: Randomly pick a customer from table (m+1), assign it to table (m+2) if the change increase P\\
+case 2: Randomly pick a customer from table (m+2), assign it to table (m+1) if the change increase P\\
+case 3: pick table (m+1), assign it the dish which increase P mostly\\
+case 4: pick table (m+2), assign it the dish which increase P mostly\\
+End\\
+\end{enumerate}  
+\item Go back to Step I)
+\end{enumerate}  
+
+
+
+
+
+
+
+
+
+\item Merge table:\\
+\begin{enumerate}[(1)]
+\item Randomly pick a Restaurant R, which has m tables.
+\item 
+ While no more changes of table assignment and dish assignment can increase P:\\
+ b=rand([0,1]) \\
+ Switch (ceil(b*2)):\\
+ case 1: Randomly pick a table in R, merge it to the table in R which increase P mostly\\
+ case 2: Randomly pick a table in R, assign it the dish which increase P mostly\\
+ End\\
+\item Go back to Step I)
+\end{enumerate}  
+
+
+\item Split dishes:
+\begin{enumerate}[(1)] 
+\item Randomly pick a Restaurant dish k, which has m tables.
+\item if(m$\neq$1) Do 2-means++ (current: K dishes,dish assignment:$z_{k0}$)
+\begin{enumerate}[(a)]
+\item Initialization:\\ \\
+Randomly pick a table t1 in from dish k to form a new dish (K+1)$\Rightarrow z_{k1}$ \\ \\
+For ww=randperm(tables from dish k except t1) \\ 
+$z_{k1}^{'}$: change $z_{k1}$ by assigning table ww to the new dish (K+1) \\
+weight(ww)=max$\{log(p(x|\lambda,z_{k1}))-log(p(x|\lambda,z_{k1}^{'})),0\}$   (more decrease,more weight) \\ 
+End \\ \\
+Randomly sample another table t2 from dish k according to weight,form a new dish (K+2):$z_{k2}$\\ \\
+
+For ww=randperm(tables from dish k except t1,t2) \\ 
+$z_{k2}^{'}$: change $z_{k2}$ by assigning table ww to dish (K+1), which increase the P by tmp1\\
+$z_{k2}^{''}$: change $z_{k2}$ by assigning table ww to dish (K+2), which increase the P by tmp2 \\
+assign table ww to dish (K+argmax\{tmp1,tmp2\})\\
+End \\ \\
+
+
+\item Iteration(2-means):\\ \\
+While no more changes of dish assignment can increase P:\\
+b=rand([0,1]) \\
+Switch (ceil(b*2)):\\
+case 1: Randomly pick a table from dish (K+1), assign it to dish (K+2) if the change increase P\\
+case 2: Randomly pick a table from dish (K+2), assign it to dish (K+1) if the change increase P\\
+End\\
+\end{enumerate}  
+\item Go back to Step I)
+\end{enumerate}  
+
+
+
+\item Merge dishes:\\
+\begin{enumerate}[(1)]
+\item Randomly pick a dish k, which has m tables.
+\item if(m~=1) Do: \\ \\
+ While no more changes of dish assignment can increase P:\\
+ Randomly pick a table from k, merge it to the dish which increase P mostly\\
+ End\\
+\item Go back to Step I)
+\end{enumerate}  
+
+
+\end{enumerate}  
+
+\underline{END}
+\end{spacing}
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

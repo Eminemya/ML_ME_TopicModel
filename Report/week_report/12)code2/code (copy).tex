@@ -1,0 +1,191 @@
+\documentclass{article}
+% Change "article" to "report" to get rid of page number on title page
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{Tabbing}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{graphicx,float,wrapfig}
+\usepackage{multirow}
+\usepackage{enumerate}
+% In case you need to adjust margins:
+\topmargin=-0.45in      %
+\evensidemargin=0in     %
+\oddsidemargin=0in      %
+\textwidth=6.5in        %
+\textheight=9.0in       %
+\headsep=0.25in         %
+
+% Homework Specific Information
+\newcommand{\hmwkTitle}{CODE formula}
+\newcommand{\hmwkClass}{}
+\newcommand{\hmwkAuthorName}{Donglai\ Wei}
+
+
+% Setup the header and footer
+\pagestyle{fancy}                                                       %
+\lhead{\hmwkAuthorName}                                                 %
+\rhead{\firstxmark}                                                     %
+\lfoot{\lastxmark}                                                      %
+\cfoot{}                                                                %
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}                          %
+\renewcommand\headrulewidth{0.4pt}                                      %
+\renewcommand\footrulewidth{0.4pt}                                      %
+
+% This is used to trace down (pin point) problems
+% in latexing a document:
+%\tracingall
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\begin{enumerate}
+
+% Some tools
+\newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+                                    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+                                   \nobreak\extramarks{#1}{}\nobreak}%
+
+\newlength{\labelLength}
+\newcommand{\labelAnswer}[2]
+  {\settowidth{\labelLength}{#1}%
+   \addtolength{\labelLength}{0.25in}%
+   \changetext{}{-\labelLength}{}{}{}%
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#2\end{minipage}}%
+   \marginpar{\fbox{#1}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \changetext{}{+\labelLength}{}{}{}}%
+
+\setcounter{secnumdepth}{0}
+\newcommand{\homeworkProblemName}{}%
+\newcounter{homeworkProblemCounter}%
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]%
+  {\stepcounter{homeworkProblemCounter}%
+   \renewcommand{\homeworkProblemName}{#1}%
+   \section{\homeworkProblemName}%
+   \enterProblemHeader{\homeworkProblemName}}%
+  {\exitProblemHeader{\homeworkProblemName}}%
+
+\newcommand{\problemAnswer}[1]
+  {\noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}}%
+
+\newcommand{\problemLAnswer}[1]
+  {\labelAnswer{\homeworkProblemName}{#1}}
+
+\newcommand{\homeworkSectionName}{}%
+\newlength{\homeworkSectionLabelLength}{}%
+\newenvironment{homeworkSection}[1]%
+  {% We put this space here to make sure we're not connected to the above.
+   % Otherwise the changetext can do funny things to the other margin
+
+   \renewcommand{\homeworkSectionName}{#1}%
+   \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+   \addtolength{\homeworkSectionLabelLength}{0.25in}%
+   \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+   \subsection{\homeworkSectionName}%
+   \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+  {\enterProblemHeader{\homeworkProblemName}%
+
+   % We put the blank space above in order to make sure this margin
+   % change doesn't happen too soon (otherwise \sectionAnswer's can
+   % get ugly about their \marginpar placement.
+   \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+
+\newcommand{\sectionAnswer}[1]
+  {% We put this space here to make sure we're disconnected from the previous
+   % passage
+
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}%
+   \enterProblemHeader{\homeworkProblemName}\exitProblemHeader{\homeworkProblemName}%
+   \marginpar{\fbox{\homeworkSectionName}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   }%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make title
+\title{\vspace{0.3in}\textmd{\textbf{\hmwkTitle}}}
+\date{2010.5.12}
+\author{\textbf{\hmwkAuthorName}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\begin{spacing}{1.1}
+\maketitle
+\section{1) Formula}
+\subsection{i) General Formula}
+W:number of unique words\\ 
+$n_{..k}^{w}$number of occurence of word w in dish k \\ \\
+$-log p(x,z|\lambda)$\\ =\\
+(t-term)$ \underline{log \frac{\Gamma(T+\gamma)}{\Gamma(\gamma)}+\sum_{j=1}^{J} \{log \frac{\Gamma(n_{j..}+\alpha)}{\Gamma(\alpha)}-\sum_{t=1}^{m_{j.}}[log(\Gamma(n_{jt.})+log \alpha
+]\}}$\\ \\
++(k-term)$ \sum_{k=1}^{K} [log(\frac{\Gamma(n_{..k}+W\phi_{0})}{\Gamma(W\phi_{0})})+log(\Pi_{w=1}^{W}\frac{\Gamma(\phi_{0})}{\Gamma(\phi_{0}+n_{..k}^{w})})
+-\underline{log(\Gamma(m_{.k})-log \gamma]}$\\ \\ 
+
+\subsection{ii) Local Search table}
+Goal: Find the best table for Customer i in Restaurant j with the previous table $t_{ji}$
+\begin{enumerate}[(A)]
+ \item Cost of moving the customer out of previous table/dish
+\begin{enumerate}
+\item t-term 
+\begin{enumerate}
+ \item if $n_{jt_{ji}.}$=1(i was the only customer in table): $-log(\Sigma_{j} m_{j.}-1+\gamma)+log(\alpha)$,tt=1,$m_{j.}$=$m_{j.}$-1
+ \item otherwise: $log(n_{jt_{ji}.}-1)$,tt=0
+\end{enumerate}
+\item k-term
+\begin{enumerate}
+ \item if $n_{..k_{jt_{ji}}}$=1(i was the only customer in dish): $log(\gamma)-log(W)$
+ \item otherwise: tt$*log(m_{.k}-1)+log(\phi_{0}+n_{..k}^{w}-1)+log(n_{..k}-1+W\phi_{0}))$
+\end{enumerate}
+\end{enumerate}
+\item Cost of moving the customer to table $t^{*}$
+\begin{enumerate}
+\item t-term 
+\begin{enumerate}
+ \item if $n_{jt^{*}.}$=0(a new table): $log(\Sigma m_{j}+\gamma)-log(\alpha)$
+ \item otherwise: $-log(n_{jt^{*}.})$
+\end{enumerate}
+\item k-term
+\begin{enumerate}
+ \item if $n_{..k_{jt^{*}}}$=0(new dish): $log(W)-log(\gamma)$
+ \item otherwise: $-log(m_{.k})+log(\phi_{0}+n_{..k}^{w})-log(n_{..k}-1+W\phi_{0}))$
+\end{enumerate}
+\end{enumerate} 
+\end{enumerate} 
+\subsection{iii) Local Search dish}
+Goal: Find the best dish for table t in Restaurant j with previous dish k
+\begin{enumerate}[(A)]
+\item Cost of moving the table out of previous dish
+\begin{enumerate}
+\item t-term 0
+\item k-term
+\begin{enumerate}
+ \item if $n_{..k_{jt}}=n_{.jt}$(t was the only table in the dish): -classes$\{k\}.F$
+ \item otherwise: $log(m_{.k}-1)+log(\frac{\Gamma(n_{..k}-n_{.jt}+W\phi_{0})}{\Gamma(n_{..k}+W\phi_{0})}+log(\Pi_{w=1}^{W}\frac{\Gamma(\phi_{0}+n_{..k}^{w})}{\Gamma(\phi_{0}+n_{..k}^{w}-n_{jt.}^{w})})$
+\end{enumerate}
+\end{enumerate}
+
+\item Cost of moving the table to dish $k^{*}$
+\begin{enumerate}
+\item t-term 0
+\item k-term
+\begin{enumerate}
+ \item if $n_{..k^{*}}$=0(new dish): $log(W)-log(\gamma)$
+ \item otherwise: $-log(m_{.k})+log(\phi_{0}+n_{..k}^{w})-log(n_{..k}-1+W\phi_{0}))$
+\end{enumerate}
+\end{enumerate}
+
+\end{enumerate}
+
+\end{spacing}
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

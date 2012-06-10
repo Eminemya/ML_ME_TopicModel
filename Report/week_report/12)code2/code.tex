@@ -1,0 +1,217 @@
+\documentclass{article}
+% Change "article" to "report" to get rid of page number on title page
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{Tabbing}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{graphicx,float,wrapfig}
+\usepackage{multirow}
+\usepackage{enumerate}
+% In case you need to adjust margins:
+\topmargin=-0.45in      %
+\evensidemargin=0in     %
+\oddsidemargin=0in      %
+\textwidth=6.5in        %
+\textheight=9.0in       %
+\headsep=0.25in         %
+
+% Homework Specific Information
+\newcommand{\hmwkTitle}{CODE formula}
+\newcommand{\hmwkClass}{}
+\newcommand{\hmwkAuthorName}{Donglai\ Wei}
+
+
+% Setup the header and footer
+\pagestyle{fancy}                                                       %
+\lhead{\hmwkAuthorName}                                                 %
+\rhead{\firstxmark}                                                     %
+\lfoot{\lastxmark}                                                      %
+\cfoot{}                                                                %
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}                          %
+\renewcommand\headrulewidth{0.4pt}                                      %
+\renewcommand\footrulewidth{0.4pt}                                      %
+
+% This is used to trace down (pin point) problems
+% in latexing a document:
+%\tracingall
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\begin{enumerate}
+
+% Some tools
+\newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+                                    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+                                   \nobreak\extramarks{#1}{}\nobreak}%
+
+\newlength{\labelLength}
+\newcommand{\labelAnswer}[2]
+  {\settowidth{\labelLength}{#1}%
+   \addtolength{\labelLength}{0.25in}%
+   \changetext{}{-\labelLength}{}{}{}%
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#2\end{minipage}}%
+   \marginpar{\fbox{#1}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \changetext{}{+\labelLength}{}{}{}}%
+
+\setcounter{secnumdepth}{0}
+\newcommand{\homeworkProblemName}{}%
+\newcounter{homeworkProblemCounter}%
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]%
+  {\stepcounter{homeworkProblemCounter}%
+   \renewcommand{\homeworkProblemName}{#1}%
+   \section{\homeworkProblemName}%
+   \enterProblemHeader{\homeworkProblemName}}%
+  {\exitProblemHeader{\homeworkProblemName}}%
+
+\newcommand{\problemAnswer}[1]
+  {\noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}}%
+
+\newcommand{\problemLAnswer}[1]
+  {\labelAnswer{\homeworkProblemName}{#1}}
+
+\newcommand{\homeworkSectionName}{}%
+\newlength{\homeworkSectionLabelLength}{}%
+\newenvironment{homeworkSection}[1]%
+  {% We put this space here to make sure we're not connected to the above.
+   % Otherwise the changetext can do funny things to the other margin
+
+   \renewcommand{\homeworkSectionName}{#1}%
+   \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+   \addtolength{\homeworkSectionLabelLength}{0.25in}%
+   \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+   \subsection{\homeworkSectionName}%
+   \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+  {\enterProblemHeader{\homeworkProblemName}%
+
+   % We put the blank space above in order to make sure this margin
+   % change doesn't happen too soon (else \sectionAnswer's can
+   % get ugly about their \marginpar placement.
+   \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+
+\newcommand{\sectionAnswer}[1]
+  {% We put this space here to make sure we're disconnected from the previous
+   % passage
+
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}%
+   \enterProblemHeader{\homeworkProblemName}\exitProblemHeader{\homeworkProblemName}%
+   \marginpar{\fbox{\homeworkSectionName}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   }%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make title
+\title{\vspace{0.3in}\textmd{\textbf{\hmwkTitle}}}
+\date{2010.5.12}
+\author{\textbf{\hmwkAuthorName}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\begin{spacing}{1.1}
+\maketitle
+\section{1) General Formula}
+W:number of unique words\\ 
+$n_{..k}$number of customers in dish k \\
+$n_{..k}^{w}$number of occurence of word w in dish k \\
+$n_{j..}$number of customers in in Restaurant j \\
+$n_{jt.}$number of customers in table t in Restaurant j \\
+$m_{..}$number of tables in total \\
+$m_{.k}$number of tables in dish k \\
+$-log p(x,z|\lambda)$\\ =\\
+(t-term)$ \underline{log \frac{\Gamma(m_{..}+\gamma)}{\Gamma(\gamma)}+\sum_{j=1}^{J} \{log \frac{\Gamma(n_{j..}+\alpha)}{\Gamma(\alpha)}-\sum_{t=1}^{m_{j.}}[log(\Gamma(n_{jt.})+log \alpha
+]\}}$\\ \\
++(k-term)$ \sum_{k=1}^{K} [log(\frac{\Gamma(n_{..k}+W\phi_{0})}{\Gamma(W\phi_{0})})+log(\Pi_{w=1}^{W}\frac{\Gamma(\phi_{0})}{\Gamma(\phi_{0}+n_{..k}^{w})})
+-\underline{log(\Gamma(m_{.k})-log \gamma]}$\\ \\ 
+\section{2) Split-Merge Search Scheme}
+\subsection{i) Local Search table}
+Goal: Find the best table for Customer i in Restaurant j with word w and previous table $t_{ji}$\\
+(t-term is underlined,k-term is not)
+\begin{enumerate}[(A)]
+ \item Cost of moving the customer out of previous table/dish
+\begin{enumerate}
+\item if $n_{jt_{ji}.}$=1(i was the only customer in the table):$m_{j.}$=$m_{j.}$-1
+\begin{enumerate}
+ \item if $n_{..k_{jt_{ji}}}$=1(i was the only customer in the dish):$\underline{-log(\Sigma_{j} m_{j.}-1+\gamma)+log(\alpha)}+log(\gamma)-log(W)$,
+ \item else:$\underline{-log(\Sigma_{j} m_{j.}-1+\gamma)+log(\alpha)}+log(m_{.k}-1)+log(\phi_{0}+n_{..k}^{w}-1)+log(n_{..k}-1+W\phi_{0}))$,
+\end{enumerate}
+\item else:(cannot be the only customer in the dish):$\underline{log(n_{jt_{ji}.}-1)}+log(m_{.k}-1)+log(\phi_{0}+n_{..k}^{w}-1)-log(n_{..k}-1+W\phi_{0}))$,
+\end{enumerate}
+update $m_{j.},classes\{k_{jt_{ji}}\}$
+
+\item Cost of moving the customer to table $t^{*}$
+\begin{enumerate}
+\item if $n_{jt^{*}.}$=0(a new table): find the best dish for it
+\begin{enumerate}
+ \item if assign the new table to an old dish: $\underline{log(\Sigma_{j} m_{j.}+\gamma)-log(\alpha)}-log(m_{.k})-log(\phi_{0}+n_{..k}^{w})+log(n_{..k}+W\phi_{0}))$
+ \item else: $\underline{log(\Sigma_{j} m_{j.}+\gamma)-log(\alpha)}-log(\gamma)+log(W)$
+\end{enumerate}
+\item else: $t^{*}$ is not a new table
+\begin{enumerate}
+ \item $\underline{-log(n_{jt^{*}.})}-log(\phi_{0}+n_{..k_{t^{*}}}^{w})+log(n_{..k_{t^{*}}}+W\phi_{0}))$,
+\end{enumerate}
+\end{enumerate} 
+\end{enumerate} 
+\subsection{iii) Local Search dish}
+Goal: Find the best dish for table t in Restaurant j with previous dish k
+\begin{enumerate}[(A)]
+\item Cost of moving the table out of previous dish
+\begin{enumerate}
+ \item if $n_{..k_{jt}}=n_{.jt}$(t was the only table in the dish): -classes$\{k\}.F$
+ \item else: $log(m_{.k}-1)+log(\frac{\Gamma(n_{..k}-n_{.jt}+W\phi_{0})}{\Gamma(n_{..k}+W\phi_{0})}+log(\Pi_{w=1}^{W}\frac{\Gamma(\phi_{0}+n_{..k}^{w})}{\Gamma(\phi_{0}+n_{..k}^{w}-n_{jt.}^{w})})$
+\end{enumerate}
+
+\item Cost of moving the table to dish $k^{*}$
+\begin{enumerate}
+ \item if $n_{..k^{*}}$=0(new dish): $log(W)-log(\gamma)$
+ \item else: $-log(m_{.k})+log(\phi_{0}+n_{..k}^{w})-log(n_{..k}-1+W\phi_{0}))$
+\end{enumerate}
+
+\end{enumerate}
+
+
+\section{2) Decompose Search Scheme}
+Now the variable is $z_{ji}$ and $m_{j.}$\\
+Previously, tables are grouped by Restaurants: $log(\Gamma(n_{jt.}))$;\\
+Here, we group them by dishes: $log(\Gamma(n_{.t^{*}k}))$;\\ \\
+$F=-log p(x,z|\lambda)$\\ =\\
+(t-term)$ \underline{log \frac{\Gamma(T+\gamma)}{\Gamma(\gamma)}+\sum_{j=1}^{J} \{log \frac{\Gamma(n_{j..}+\alpha)}{\Gamma(\alpha)}-\sum_{t=1}^{m_{j.}}[log(\Gamma(n_{jt.})+log \alpha
+]\}}$\\ \\
++(k-term)$ \sum_{k=1}^{K} [log(\frac{\Gamma(n_{..k}+W\phi_{0})}{\Gamma(W\phi_{0})})+log(\Pi_{w=1}^{W}\frac{\Gamma(\phi_{0})}{\Gamma(\phi_{0}+n_{..k}^{w})})
+-\underline{log(\Gamma(m_{.k})-log \gamma]}$\\ \\ 
+=\\
+(z-term)$ +\sum_{k=1}^{K} [log(\frac{\Gamma(n_{..k}+W\phi_{0})}{\Pi_{1}^{W}\Gamma(\phi_{0}+n_{..k}^{w})\Gamma(m_{.k})\Pi_{t^{*}=1}^{m_{.k}}\Gamma(n_{.t^{*}k})})]$\\ \\
+(TK-term)$-Tlog\alpha-Klog\gamma+Klog\frac{\Gamma(\phi_{0})^{W}}{\Gamma(W\phi_{0})}+log\Gamma(T+\gamma)$\\ \\
+(constant-term)$-log\Gamma(\gamma)+\sum_{j=1}^{J} log \frac{\Gamma(n_{j..}+\alpha)}{\Gamma(\alpha)}$
+\\ \\
+{\bf Observation:}\\
+\begin{enumerate}
+ \item TK-term: want T,K small
+\begin{enumerate}[(i)]
+ \item T$\rightsquigarrow$T-1:  $\Delta(TK-term)$=log($\alpha$)-log($T-1+\gamma)<0$ a.e.
+ \item K$\rightsquigarrow$K-1: $\Delta(TK-term)$=log($\gamma$)-log($\frac{\Gamma(\phi_{0})^{W}}{\Gamma(W\phi_{0})})<0$ a.e.
+\end{enumerate}
+ \item z-term:want K big,T small
+ \item numerator:  Bigger K and Similar $n_{..k}$ will lead to smaller $\Gamma(n_{..k}+W\phi_{0})$
+ \item denominator:Smaller $m_{.k}$ and  $\Pi_{1}^{W}\Gamma(\phi_{0}+n_{..k}^{w})\Gamma(m_{.k})\Pi_{t^{*}=1}^{m_{.k}}\Gamma(n_{.t^{*}k})$
+\end{enumerate}
+
+
+1) (Decompose dish) K$\rightsquigarrow$K-1:
+1) (Decompose table)T$\rightsquigarrow$T+1:
+
+1)(Decompose table in a restaurant)
+\end{spacing}
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

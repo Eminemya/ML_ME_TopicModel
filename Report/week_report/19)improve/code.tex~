@@ -1,0 +1,308 @@
+\documentclass{article}
+% Change "article" to "report" to get rid of page number on title page
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{Tabbing}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{graphicx,float,wrapfig}
+\usepackage{multirow}
+\usepackage{enumerate}
+% In case you need to adjust margins:
+\topmargin=-0.45in      %
+\evensidemargin=0in     %
+\oddsidemargin=0in      %
+\textwidth=6.5in        %
+\textheight=9.0in       %
+\headsep=0.25in         %
+
+% Homework Specific Information
+\newcommand{\hmwkTitle}{Complete Pseudo-Code for ME}
+\newcommand{\hmwkClass}{}
+\newcommand{\hmwkAuthorName}{Donglai\ Wei}
+
+
+% Setup the header and footer
+\pagestyle{fancy}                                                       %
+\lhead{\hmwkAuthorName}                                                 %
+\rhead{\firstxmark}                                                     %
+\lfoot{\lastxmark}                                                      %
+\cfoot{}                                                                %
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}                          %
+\renewcommand\headrulewidth{0.4pt}                                      %
+\renewcommand\footrulewidth{0.4pt}                                      %
+
+% This is used to trace down (pin point) problems
+% in latexing a document:
+%\tracingall
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\begin{enumerate}
+
+% Some tools
+\newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+                                    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+                                   \nobreak\extramarks{#1}{}\nobreak}%
+
+\newlength{\labelLength}
+\newcommand{\labelAnswer}[2]
+  {\settowidth{\labelLength}{#1}%
+   \addtolength{\labelLength}{0.25in}%
+   \changetext{}{-\labelLength}{}{}{}%
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#2\end{minipage}}%
+   \marginpar{\fbox{#1}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \changetext{}{+\labelLength}{}{}{}}%
+
+\setcounter{secnumdepth}{0}
+\newcommand{\homeworkProblemName}{}%
+\newcounter{homeworkProblemCounter}%
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]%
+  {\stepcounter{homeworkProblemCounter}%
+   \renewcommand{\homeworkProblemName}{#1}%
+   \section{\homeworkProblemName}%
+   \enterProblemHeader{\homeworkProblemName}}%
+  {\exitProblemHeader{\homeworkProblemName}}%
+
+\newcommand{\problemAnswer}[1]
+  {\noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}}%
+
+\newcommand{\problemLAnswer}[1]
+  {\labelAnswer{\homeworkProblemName}{#1}}
+
+\newcommand{\homeworkSectionName}{}%
+\newlength{\homeworkSectionLabelLength}{}%
+\newenvironment{homeworkSection}[1]%
+  {% We put this space here to make sure we're not connected to the above.
+   % Otherwise the changetext can do funny things to the other margin
+
+   \renewcommand{\homeworkSectionName}{#1}%
+   \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+   \addtolength{\homeworkSectionLabelLength}{0.25in}%
+   \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+   \subsection{\homeworkSectionName}%
+   \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+  {\enterProblemHeader{\homeworkProblemName}%
+
+   % We put the blank space above in order to make sure this margin
+   % change doesn't happen too soon (else \sectionAnswer's can
+   % get ugly about their \marginpar placement.
+   \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+
+\newcommand{\sectionAnswer}[1]
+  {% We put this space here to make sure we're disconnected from the previous
+   % passage
+
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}%
+   \enterProblemHeader{\homeworkProblemName}\exitProblemHeader{\homeworkProblemName}%
+   \marginpar{\fbox{\homeworkSectionName}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   }%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make title
+\title{\vspace{0.3in}\textmd{\textbf{\hmwkTitle}}}
+\date{2010.7.11}
+\author{\textbf{\hmwkAuthorName}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\begin{spacing}{1.1}
+\maketitle
+\section{0) Notations }
+Hierarchical Dirichlet Process Model with Dirichlet-Multinomial:
+\subsection{i) Settings}
+{\bf Hyper-parameter:}\\
+$\alpha,\gamma$: HDP concentration parameter\\
+$\vec \lambda$: Prior for Dirichlet Distribution(W=dim($\vec \lambda$):number of different words;uniform prior:$\lambda_{1},...,\lambda_{W}=\lambda_{0}$)\\
+{\bf Hidden Variable:}\\
+(M-step)z: Discrete assignment($t_{ji},k_{jt}$ correspond to customer,table assignment in Chinese Restaurant Franchise)\\
+(E-step)$\theta$: Multinomial parameter\\
+{\bf Observation:}\\
+x:$\in$(1,...W)\\ 
+\subsection{ii)Formula}
+$n_{jtk}$number of customers in table t Restaurant j serving dish k \\
+$n_{jt.}$number of customers in table t in Restaurant j \\
+$n_{j..}$number of customers in in Restaurant j \\
+$n_{..k}$number of customers serving dish k \\
+$n_{..k}^{w}$number of occurence of word w in dish k \\
+$m_{jk}$number of tables in Restaurant j serving dish k\\
+$m_{..}$number of tables in total \\
+$m_{.k}$number of tables in dish k \\
+J Restaurants,K dishes\\ \\
+{\bf Goal}:(Marginalize $\theta$ and Search over z:)\\
+ Maximize log Probability $L=log p(x,z|\lambda)$\\ =\\
+(t-term)$ \underline{\sum_{j=1}^{J} \{log \frac{\Gamma(\alpha)}{\Gamma(n_{j..}+\alpha)}+\sum_{t=1}^{m_{j.}}[log(\Gamma(n_{jt.})+log \alpha
+]\}}$\\ \\
++(k-term)$ \underline{log \frac{\Gamma(\gamma)}{\Gamma(m_{..}+\gamma)}}+\sum_{k=1}^{K} [log(\frac{\Pi_{w=1}^{W}\Gamma(\lambda_{0}+n_{..k}^{w})}{\Gamma(n_{..k}+W\lambda_{0})})+log(\frac{\Gamma(W\lambda_{0})}{\Gamma(\lambda_{0})^{W}})
++\underline{log(\Gamma(m_{.k})+log \gamma]}$\\ \\ \emph{{\small (underlined part come from Hierarchical Dirichlet Process)}}\\ 
+{\bf b) Annealing}: Maximize the annealed log Probability:\\ \\
+L'(Temperature)=Temperature*(t-term)+(k-term)
+
+
+
+\section{1) ME algorithm: }
+J Restaurants,K dishes
+\subsection{i) Backbone}
+\begin{enumerate}[(1)]
+\item Initialization:
+\item Annealing:(n:number of iterations; p:annealing power)
+\begin{enumerate}[(i)]
+\item For iter=1:n
+\item Temperature=$(\frac{iter}{n})^p$
+\item Decompose Dish(Temperature)
+\item End
+\end{enumerate}
+\item Run for Convergence:
+\begin{enumerate}[(i)]
+\item While L doesn't increase any more
+\item Decompose Restaurants(1)
+\item End
+\end{enumerate}
+\end{enumerate}
+
+\subsection{ii) Decompose Dish(Negative Temperature:Temperature)}
+For k=Randperm(K)
+\begin{enumerate}[(A)]
+\item Rough Reconfig of Dish k
+\begin{enumerate}[(i)]
+\item For j=Restaurants which have tables serving dish k
+\item Decompose Restaurant(j,Temperature,k);
+\item END
+\end{enumerate} 
+\item Further Refinement of Dish k
+\begin{enumerate}[(i)]
+\item LM-Dish(k):
+\small{\emph{(Local-Search and Merge Move for Dish k)}}
+\end{enumerate} 
+\item Decision
+\begin{enumerate}[(i)]
+\item IF($\Delta K+{\bf Temperature}*\Delta T<$0):
+\item Accept new config
+\item END
+\end{enumerate} 
+\end{enumerate}
+END
+\subsection{iii) Decompose Restaurants(Restaurant index:j,Negative Temperature:Temperature,The Left Out Dish: $k_{0}$)}
+\begin{enumerate}[(A)]
+\item Rough Reconfig of Restaurant j:
+\begin{enumerate}[(i)]
+\item Make Restaurant j into one table $t_{0}$ where customers following uniform distribution:\\
+\small{\emph{($\%$Thus the Probability P($t_{ji}=t_{0}$)=$\frac{1}{W}$)}}
+\item Possible Dish=$\{Nonempty \ dishes\}\setminus k_{0}$
+\item WHILE Possible Dish is not empty:
+\begin{enumerate}[(a)]
+\item FOR each dish k$\in$Possible Dish\\
+Propose to form a new table $t_{k}$ out of $t_{0}$ with dish k and calculate {the change for these two dishes} $\Delta k$:\\
+\small{\emph{($\%$For each customer i in $t_{0}$, sample $t_{ji}\in\{t_{0},t_{k}\}\sim\{\frac{1}{W},\frac{n_{..k}^{w}+\phi}{n_{..k}+W\phi}\}$)}}\\
+\small{\emph{($\%$Propose to form table $t_{k}$ with customers whose $t_{ji}=t_{k}$)}}\\
+Sample a proposal $t_{k*}$ according to the weight and make the new table:\\
+\small{\emph{($\%$Sample a proposal $\{t_{k_{1}},...,t_{k_{K}}\}\sim e^{r_{proposal}\{\Delta k_{1},...\Delta k_{K}\}}$)}}\\
+\small{\emph{($\%r_{proposal}>0$, the more decrease of $\Delta k$, the less propable to form table $t_{k}$)}}
+\item Possible Dish=Possible Dish$\setminus k_{*}$\\
+$t_{0}=t_{0} \setminus t_{k_{*}}$
+\item END
+\end{enumerate}
+\item IF there are still customers left in $t_{0}$,make it a new table with a new dish K+1
+\end{enumerate}
+\item Further Refinement of Restaurant j:\\
+\begin{enumerate}[(i)]
+\item LM-Restaurant(j,Temperature):\\
+\small{\emph{(Local-Search and Merge Move for tables in Restaurant j)}}
+\small{\emph{($\%$Calculate the change of L between present Restaurant j config and its previous config: $\Delta L$=$\Delta K$+$\Delta T$)}}
+\end{enumerate}
+\item Decision:\\
+\begin{enumerate}[(i)]
+\item IF($\Delta K+{\bf Temperature}*\Delta T<$0):
+\item Accept the new configuration
+\item ELSE:
+\item Restore Previous Config
+\item END
+\end{enumerate}
+\end{enumerate}
+
+
+\subsection{iv) LM-Restaurant(Restaurant index:j,Negative Temperature:Temperature)}
+While L doesn't increase any more:\\
+\begin{enumerate}[(A)]
+\item Local Search Table:\\ \\
+For $t_{1}$=Randperm($m_{j.}$):
+For $t_{2}$=Randperm($m_{j.}\setminus t_{1}$):\\ \\
+While local move can be made:\\
+Greedily move one customer at a time from $t_{1}$ to $t_{2}$ if the move increases {\bf L'(Temperature)} \\
+End\\ \\
+End
+\item Local Search Dish:\\
+For $t_{1}$=Randperm($m_{j.}$):\\
+Assign $t_{1}$ to the dish which increase L most(allow it to have new dish)\\
+End
+\item Merge table:\\ \\
+ For $t_{1}$=Randperm($m_{j.}$):\\
+ Merge table $t_{1}$ to the table in j with the best dish k, which increase {\bf L'(Temperature)} most\\
+ \small{\emph{(if cannot increase {\bf L'(Temperature)},then leave it alone)}}\\
+ End\\ \\
+\end{enumerate}  
+END
+\subsection{v) LM-Dish(Dish index:k)}
+\begin{enumerate}[(A)]
+\item IF Dish k is not empty:(Local Dish):\\ \\
+Dish List=$\{Nonempty \ dishes\}\setminus k$\\ 
+FOR w=Randperm(Words Occur in Dish k):\\ \\
+i) Find promising dishes to exchange word w \\   
+\small{\emph{(find the dishes that appear most often with the tables having word w in dish k)}}\\
+FOR kk=Dish List\\
+Same Restaurant(kk)=index of restaurants in dish kk, that have tables serving dish k\\
+Promising Dish(kk)=length(Same Restaurant(kk))\\
+END\\ \\
+
+ii) Find the best approximated Reallocation of word w:\\
+$\Delta L$=0;\\ 
+FOR kkk=find(Promising Dish==max(Promising Dish)):\\ \\
+a)Naive Reallocation:\\
+For j=Same Restaurant(kkk)\\
+Assign all of words w from the table serving dish k to the table serving dish kkk\\
+END\\
+Calculate the change of L between present config and previous config:$l_{0}$
+b)Gready Search:\\
+$\Delta l$=1\\
+WHILE $\Delta l>$0\\
+$\Delta l_k$=$\Delta K$(assign one word w from dish kkk back to dish k)\\
+$\Delta l_t$=max($\Delta T$(assign one word w from dish kkk back to dish k in Restaurant j$\in$Same Restaurant(kkk)))\\
+$\Delta l=\Delta l_k+\Delta l_t$\\
+END\\
+$\Delta L=max(\Delta L,l_{0}+\Delta l)$\\
+END\\ \\
+iii)Decision:\\
+IF $\Delta L>$0\\
+Accept new config\\
+ELSE\\
+Restore previous config\\
+END\\ \\
+END
+\item IF Dish k is still not empty:(Merge Dish)\\ \\
+ Dish List=$\{Nonempty \ dishes\}\setminus k$\\ 
+ While Dish List is not empty:\\
+ 1) Randomly pick a dish k$\in$ Dish List\\
+ 2) Dish List=Dish List$\setminus$k\\
+ 3) Merge dish k to the dish$\in$ Dish List which increase {\bf L'(Temperature)} mostly\\
+\small{\emph{(if cannot increase {\bf L'(Temperature)}, then leave it alone)}}\\
+ END\\ \\
+END
+END
+\end{enumerate}
+
+\end{spacing}
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

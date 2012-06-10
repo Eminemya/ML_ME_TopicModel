@@ -1,0 +1,18 @@
+n=10:10:100;
+n(1)=1;
+n(10)=1000;
+lam=ones(1,10)*100;
+
+
+[aa,bb]=sort(psi(n+lam)-psi(lam),'ascend');
+pre_b=zeros(1,10);
+
+step=0.00001;
+while sum(pre_b~=bb)>0
+pre_b=bb;
+for i=1:5
+ind=[bb(i),bb(11-i)];
+lam(ind)=pair(n(ind),lam(ind),step);
+end
+[aa,bb]=sort(psi(n+lam)-psi(lam));
+end

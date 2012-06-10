@@ -1,0 +1,188 @@
+\documentclass{article}
+% Change "article" to "report" to get rid of page number on title page
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{Tabbing}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{graphicx,float,wrapfig}
+\usepackage{multirow}
+\usepackage{enumerate}
+% In case you need to adjust margins:
+\topmargin=-0.45in      %
+\evensidemargin=0in     %
+\oddsidemargin=0in      %
+\textwidth=6.5in        %
+\textheight=9.0in       %
+\headsep=0.25in         %
+
+% Homework Specific Information
+\newcommand{\hmwkTitle}{Comparison on the Toy Data}
+\newcommand{\hmwkClass}{}
+\newcommand{\hmwkAuthorName}{Donglai\ Wei}
+
+
+% Setup the header and footer
+\pagestyle{fancy}                                                       %
+\lhead{\hmwkAuthorName}                                                 %
+\rhead{\firstxmark}                                                     %
+\lfoot{\lastxmark}                                                      %
+\cfoot{}                                                                %
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}                          %
+\renewcommand\headrulewidth{0.4pt}                                      %
+\renewcommand\footrulewidth{0.4pt}                                      %
+
+% This is used to trace down (pin point) problems
+% in latexing a document:
+%\tracingall
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\begin{enumerate}
+
+% Some tools
+\newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+                                    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+                                   \nobreak\extramarks{#1}{}\nobreak}%
+
+\newlength{\labelLength}
+\newcommand{\labelAnswer}[2]
+  {\settowidth{\labelLength}{#1}%
+   \addtolength{\labelLength}{0.25in}%
+   \changetext{}{-\labelLength}{}{}{}%
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#2\end{minipage}}%
+   \marginpar{\fbox{#1}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \changetext{}{+\labelLength}{}{}{}}%
+
+\setcounter{secnumdepth}{0}
+\newcommand{\homeworkProblemName}{}%
+\newcounter{homeworkProblemCounter}%
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]%
+  {\stepcounter{homeworkProblemCounter}%
+   \renewcommand{\homeworkProblemName}{#1}%
+   \section{\homeworkProblemName}%
+   \enterProblemHeader{\homeworkProblemName}}%
+  {\exitProblemHeader{\homeworkProblemName}}%
+
+\newcommand{\problemAnswer}[1]
+  {\noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}}%
+
+\newcommand{\problemLAnswer}[1]
+  {\labelAnswer{\homeworkProblemName}{#1}}
+
+\newcommand{\homeworkSectionName}{}%
+\newlength{\homeworkSectionLabelLength}{}%
+\newenvironment{homeworkSection}[1]%
+  {% We put this space here to make sure we're not connected to the above.
+   % Otherwise the changetext can do funny things to the other margin
+
+   \renewcommand{\homeworkSectionName}{#1}%
+   \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+   \addtolength{\homeworkSectionLabelLength}{0.25in}%
+   \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+   \subsection{\homeworkSectionName}%
+   \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+  {\enterProblemHeader{\homeworkProblemName}%
+
+   % We put the blank space above in order to make sure this margin
+   % change doesn't happen too soon (else \sectionAnswer's can
+   % get ugly about their \marginpar placement.
+   \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+
+\newcommand{\sectionAnswer}[1]
+  {% We put this space here to make sure we're disconnected from the previous
+   % passage
+
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}%
+   \enterProblemHeader{\homeworkProblemName}\exitProblemHeader{\homeworkProblemName}%
+   \marginpar{\fbox{\homeworkSectionName}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   }%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make title
+\title{\vspace{0.3in}\textmd{\textbf{\hmwkTitle}}}
+\date{2010.6.21}
+\author{\textbf{\hmwkAuthorName}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\begin{spacing}{1.1}
+\maketitle
+{\bf Settings:}\\
+Each Restaurant is a 5 by 5 matrix, composed of 1-5 bars with extra noise.\\ \\
+{\bf ME algorithm:}\\
+\begin{enumerate}[(1)]
+\item Find bars:
+\begin{enumerate}[(i)]
+\item While the number of dishes doesn't change any more
+\item Decompose Restaurants:
+\begin{enumerate}[(a)]
+\item GO through all Restaurants in random order: Randperm(J)
+\item Sample customer assignment for each new table proposal
+\item Make the new table with the best proposal(Hard assignment)
+\item TKM(Local Table/Dish+Merge Dish)
+\item Accept the new config
+\end{enumerate}
+\item End
+\end{enumerate}
+\item Find Higher log Probability P:
+\begin{enumerate}[(i)]
+\item While P doesn't change any more
+\item Decompose Restaurants:
+\begin{enumerate}[(a)]
+\item GO through all Restaurants in random order: Randperm(J)
+\item Sample customer assignment for each new table proposal
+\item Make the new table with the sampled proposal(Soft assignment)
+\item TKM(Local Table/Dish+Merge Table)
+\item Accept/Reject
+\end{enumerate}
+\item End
+\end{enumerate}
+\end{enumerate}
+
+
+
+\begin{figure}
+ \centering
+   \begin{tabular}{cc}    
+     \resizebox{50mm}{!}{\includegraphics{200_log.jpg}} &
+     \resizebox{50mm}{!}{\includegraphics{200_con.jpg}} \\
+   \end{tabular}
+    \caption{200 Restaurants:\\10 runs for Gibbs crf,beta,block with 1000 iterations;\\1 run ME with 10 iterations(the step is fake for comparison purpose)}
+    \label{fig:by:table} 
+\end{figure}
+\begin{figure}
+ \centering
+   \begin{tabular}{cc}    
+     \resizebox{50mm}{!}{\includegraphics{500_log.jpg}} &
+     \resizebox{50mm}{!}{\includegraphics{500_con.jpg}} \\
+   \end{tabular}
+    \caption{500 Restaurants:\\10 runs for Gibbs beta,block with 1000 iterations;\\1 run ME with 10 iterations(the step is fake for comparison purpose)}
+    \label{fig:by:table} 
+\end{figure}
+\begin{figure}
+ \centering
+   \begin{tabular}{cc}    
+     \resizebox{50mm}{!}{\includegraphics{1000_log.jpg}} &
+     \resizebox{50mm}{!}{\includegraphics{1000_con.jpg}} \\
+   \end{tabular}
+    \caption{1000 Restaurants:\\10 runs for Gibbs beta,block with 1000 iterations;\\1 run ME with 10 iterations(the step is fake for comparison purpose)}
+    \label{fig:by:table} 
+\end{figure}
+
+\end{spacing}
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

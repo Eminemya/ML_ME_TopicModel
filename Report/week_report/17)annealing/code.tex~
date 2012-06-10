@@ -1,0 +1,242 @@
+\documentclass{article}
+% Change "article" to "report" to get rid of page number on title page
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{Tabbing}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{graphicx,float,wrapfig}
+\usepackage{multirow}
+\usepackage{enumerate}
+% In case you need to adjust margins:
+\topmargin=-0.45in      %
+\evensidemargin=0in     %
+\oddsidemargin=0in      %
+\textwidth=6.5in        %
+\textheight=9.0in       %
+\headsep=0.25in         %
+
+% Homework Specific Information
+\newcommand{\hmwkTitle}{Complete Pseudo-Code for ME}
+\newcommand{\hmwkClass}{}
+\newcommand{\hmwkAuthorName}{Donglai\ Wei}
+
+
+% Setup the header and footer
+\pagestyle{fancy}                                                       %
+\lhead{\hmwkAuthorName}                                                 %
+\rhead{\firstxmark}                                                     %
+\lfoot{\lastxmark}                                                      %
+\cfoot{}                                                                %
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}                          %
+\renewcommand\headrulewidth{0.4pt}                                      %
+\renewcommand\footrulewidth{0.4pt}                                      %
+
+% This is used to trace down (pin point) problems
+% in latexing a document:
+%\tracingall
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\begin{enumerate}
+
+% Some tools
+\newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+                                    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+                                   \nobreak\extramarks{#1}{}\nobreak}%
+
+\newlength{\labelLength}
+\newcommand{\labelAnswer}[2]
+  {\settowidth{\labelLength}{#1}%
+   \addtolength{\labelLength}{0.25in}%
+   \changetext{}{-\labelLength}{}{}{}%
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#2\end{minipage}}%
+   \marginpar{\fbox{#1}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \changetext{}{+\labelLength}{}{}{}}%
+
+\setcounter{secnumdepth}{0}
+\newcommand{\homeworkProblemName}{}%
+\newcounter{homeworkProblemCounter}%
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]%
+  {\stepcounter{homeworkProblemCounter}%
+   \renewcommand{\homeworkProblemName}{#1}%
+   \section{\homeworkProblemName}%
+   \enterProblemHeader{\homeworkProblemName}}%
+  {\exitProblemHeader{\homeworkProblemName}}%
+
+\newcommand{\problemAnswer}[1]
+  {\noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}}%
+
+\newcommand{\problemLAnswer}[1]
+  {\labelAnswer{\homeworkProblemName}{#1}}
+
+\newcommand{\homeworkSectionName}{}%
+\newlength{\homeworkSectionLabelLength}{}%
+\newenvironment{homeworkSection}[1]%
+  {% We put this space here to make sure we're not connected to the above.
+   % Otherwise the changetext can do funny things to the other margin
+
+   \renewcommand{\homeworkSectionName}{#1}%
+   \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+   \addtolength{\homeworkSectionLabelLength}{0.25in}%
+   \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+   \subsection{\homeworkSectionName}%
+   \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+  {\enterProblemHeader{\homeworkProblemName}%
+
+   % We put the blank space above in order to make sure this margin
+   % change doesn't happen too soon (else \sectionAnswer's can
+   % get ugly about their \marginpar placement.
+   \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+
+\newcommand{\sectionAnswer}[1]
+  {% We put this space here to make sure we're disconnected from the previous
+   % passage
+
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}%
+   \enterProblemHeader{\homeworkProblemName}\exitProblemHeader{\homeworkProblemName}%
+   \marginpar{\fbox{\homeworkSectionName}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   }%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make title
+\title{\vspace{0.3in}\textmd{\textbf{\hmwkTitle}}}
+\date{2010.6.22}
+\author{\textbf{\hmwkAuthorName}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\begin{spacing}{1.1}
+\maketitle
+\section{0) Notations }
+Hierarchical Dirichlet Process Model with Dirichlet-Multinomial:
+\subsection{i) Settings}
+{\bf Hyper-parameter:}\\
+$\alpha,\gamma$: HDP concentration parameter\\
+$\vec \lambda$: Prior for Dirichlet Distribution(W=dim($\vec \lambda$):number of different words;uniform prior:$\lambda_{1},...,\lambda_{W}=\lambda_{0}$)\\
+{\bf Hidden Variable:}\\
+(M-step)z: Discrete assignment($t_{ji},k_{jt}$ correspond to customer,table assignment in Chinese Restaurant Franchise)\\
+(E-step)$\theta$: Multinomial parameter\\
+{\bf Observation:}\\
+x:$\in$(1,...W)\\ \\
+\subsection{ii)Formula}
+$n_{..k}$number of customers in dish k \\
+$n_{..k}^{w}$number of occurence of word w in dish k \\
+$n_{j..}$number of customers in in Restaurant j \\
+$n_{jt.}$number of customers in table t in Restaurant j \\
+$m_{..}$number of tables in total \\
+$m_{.k}$number of tables in dish k \\ 
+J Restaurants,K dishes\\ \\
+{\bf Goal}:(Marginalize $\theta$ and Search over z:)\\
+ Maximize log Probability $L=log p(x,z|\lambda)$\\ =\\
+(t-term)$ \underline{log \frac{\Gamma(\gamma)}{\Gamma(m_{..}+\gamma)}+\sum_{j=1}^{J} \{log \frac{\Gamma(\alpha)}{\Gamma(n_{j..}+\alpha)}+\sum_{t=1}^{m_{j.}}[log(\Gamma(n_{jt.})+log \alpha
+]\}}$\\ \\
++(k-term)$ \sum_{k=1}^{K} [log(\frac{\Pi_{w=1}^{W}\Gamma(\lambda_{0}+n_{..k}^{w})}{\Gamma(n_{..k}+W\lambda_{0})})+log(\frac{\Gamma(W\lambda_{0})}{\Gamma(\lambda_{0})^{W}})
++\underline{log(\Gamma(m_{.k})+log \gamma]}$\\ \\ \emph{{\small (underlined part come from Hierarchical Dirichlet Process)}}\\ 
+
+
+
+\section{1) ME algorithm: }
+\subsection{i) Backbone}
+\begin{enumerate}[(1)]
+\item Find bars:
+\begin{enumerate}[(i)]
+\item While the number of dishes doesn't change any more
+\item Decompose Restaurants(Hard Proposal Assignment,Merge Dish,Accept all)
+\item End
+\end{enumerate}
+\item Find Higher log Probability L:
+\begin{enumerate}[(i)]
+\item While L doesn't increase any more
+\item Decompose Restaurants(Soft Proposal Assignment,Merge Table,Accept/Reject)
+\item End
+\end{enumerate}
+\end{enumerate}
+
+\subsection{ii) Decompose Restaurants(Proposal option,TKM option,Decision option)}
+For j=Randperm(J)
+\begin{enumerate}[(A)]
+\item Rough reconfiguration for Restaurant j:
+\begin{enumerate}[(i)]
+\item Make Restaurant j into one table $t_{0}$ where customers following uniform distribution:\\
+\small{\emph{($\%$Thus the Probability P($t_{ji}=t_{0}$)=$\frac{1}{W}$)}}
+\item Possible Dish=$\{Nonempty \ dishes\}$
+\item Iterate until no customers are left in this uniform table $t_{0}$:
+\begin{enumerate}[(a)]
+\item For each dish k$\in$Possible Dish, propose to form a new table $t_{k}$ out of $t_{0}$ with dish k and calculate the change $\Delta L_{k}$:\\
+\small{\emph{($\%$For each customer i in $t_{0}$, sample $t_{ji}\in\{t_{0},t_{k}\}\sim\{\frac{1}{W},\frac{n_{..k}^{w}+\phi}{n_{..k}+W\phi}\}$)}}\\
+\small{\emph{($\%$Propose to form table $t_{k}$ with customers whose $t_{ji}=t_{k}$)}}
+\item If({\bf Proposal option}==Hard Assignment Proposal):\\
+\ \ \ $Find$ the proposal $t_{k*}$ which has the biggest $\Delta P$ and make the new table:\\ \\
+elseif({\bf Proposal option}==Soft Assignment Proposal):\\
+$Sample$ a proposal $t_{k*}$ according to the weight and make the new table:\\
+\small{\emph{($\%$Sample a proposal $\{t_{k_{1}},...,t_{k_{K}}\}\sim e^{r_{proposal}\{\Delta L_{k_{1}},...\Delta L_{k_{K}}\}}$)}}\\
+\small{\emph{($\%r_{proposal}>0$, the more decrease of $\Delta L_{k}$, the less propable to form table $t_{k}$)}}
+\item Possible Dish=Possible Dish$\setminus k_{*}$
+\end{enumerate}
+\end{enumerate}
+\item Refined reconfiguration for Restaurant j:TKM(j,{\bf TKM option}):\\
+\small{\emph{($\%$Calculate the change of L between present Restaurant j config and its previous config: $\Delta L$)}}
+\item Decision:\\
+If({\bf Decision option}==Accept):\\
+$Accept$ the new configuration\\ \\
+elseif({\bf Decision option}==Accept/Reject):\\
+Accept the new config with Probability min$\{e^{r_{accept}\Delta L},1\}$\\
+\small{\emph{($\%r_{accept}>0$, if L increase,always accept; otherwise more decrease,more likely to reject)}}
+\end{enumerate}
+End
+\subsection{ii) TKM(Restaurant index,TKM option)}
+
+
+While L doesn't increase any more:\\
+\begin{enumerate}[(A)]
+\item Local Search Table:\\ \\
+For $t_{1}$=Randperm($m_{j.}$):
+For $t_{2}$=Randperm($m_{j.}\setminus t_{1}$):\\ \\
+While local move can be made:\\
+Greedily move one customer at a time from $t_{1}$ to $t_{2}$ if the move increases L \\
+End\\ \\
+End
+\item Local Search Dish:\\
+\begin{enumerate}[(i)]
+\item Rough search $k_{jt}$:\\
+For $t_{1}$=Randperm($m_{j.}$):\\
+Assign $t_{1}$ to the dish which increase L most(allow it to have new dish)\\
+End
+\item Merge tables with the same dish(since we don't have merge table move during "Find Bars")\\
+\end{enumerate}
+if({\bf TKM option}==Merge table):
+\item Merge table:\\
+ While no more changes of table assignment and dish assignment can increase P:\\
+ b=rand([0,1]) \\ \\
+ Switch (ceil(b*2)):\\
+ case 1: Randomly pick a table in restaurant j, merge it to the table in j which increase L most(if cannot increase L,leave the table alone)\\
+ case 2: Randomly pick a table in restaurant j, assign it the dish which increase L most(allow it to have new dish)\\
+ End\\ \\
+ End\\ \\
+elseif({\bf TKM option}==Merge Dish)
+\item Merge dishes:
+ Dish List=$\{k:\exists t \ s.t. \ k_{jt}=k\}$\\ \\
+ While no more changes of dish assignment can increase L:\\
+ Randomly pick a dish, merge it to the dish which increase L mostly(if cannot increase L,leave the dish alone)\\
+ End\\
+\end{enumerate}  
+
+
+
+\end{spacing}
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
